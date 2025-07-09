@@ -109,12 +109,13 @@ const getFetchCard = async (pokemonId) => {
       throw new Error(`HTTP error! Status: ${response.status}, Details: ${errorText}`);
     }
 
-    const { name, sprites } = await res.json();
+    const { name, types, sprites } = await res.json();
+    const type = types[0].type.name;
     const defaultImage = sprites["front_default"];
     const shinyImage = sprites["front_shiny"];
     const cardId = crypto.randomUUID();
 
-    return { cardId, name, pokemonId, defaultImage, shinyImage };
+    return { cardId, name, type, pokemonId, defaultImage, shinyImage };
   }
   catch (error) {
     (error => console.error('Error fetching data:', error));
@@ -126,7 +127,7 @@ function getStoredCard(pokemonId) {
   return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : null;
 }
 
-function setStoredCard({ cardId, name, pokemonId, defaultImage, shinyImage }) {
+function setStoredCard({ cardId, name, type, pokemonId, defaultImage, shinyImage }) {
   const key = pokemonId;
-  localStorage.setItem(key, JSON.stringify({ cardId, name, pokemonId, defaultImage, shinyImage }));
+  localStorage.setItem(key, JSON.stringify({ cardId, name, type, pokemonId, defaultImage, shinyImage }));
 }

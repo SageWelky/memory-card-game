@@ -17,7 +17,7 @@ export const Body = () => {
     setLoading(true);
 
     const initializeHand = setTimeout(async () => {
-      // drawNewHand(1);
+      drawNewHand(12);
       setLoading(false);
     }, 800);
     return () => {
@@ -31,7 +31,11 @@ export const Body = () => {
         loading ? (
           <div>Loading</div>
         ) : (
-          <BodyCardMatt hand={currentHand}></BodyCardMatt>
+          <BodyCardMatt
+            pokemonClassName={styles.pokemonCard}
+            mattClassName={styles.matt}
+            hand={currentHand}>
+          </BodyCardMatt>
         )
       ) : (
         <BodyStartup handleClick={beginGame}></BodyStartup>

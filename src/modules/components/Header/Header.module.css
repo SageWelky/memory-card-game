@@ -1,6 +1,10 @@
 .header {
   display: flex;
   justify-content: space-between;
+  /* optical symmetry for logo */
+  padding-left: 1dvw;
+  padding-right: 1.5dvw;
+  padding-top: 1.5dvw;
 }
 
 .logo {

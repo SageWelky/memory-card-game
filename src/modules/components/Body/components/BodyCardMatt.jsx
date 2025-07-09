@@ -1,16 +1,25 @@
 import { useState } from 'react'
-import Card from '@mui/material/Card'
+import { PokemonCard } from '../../../common/PokemonCard'
 
-export const BodyCardMatt = ({hand}) => {
+export const BodyCardMatt = ({ hand, mattClassName, pokemonClassName }) => {
 
   return (
-    <ul style={{ display: 'flex', justifyContent: 'center' }}>
+    <ul className={mattClassName}>
       {
-        hand.map((card) => (
-          <li key={card.cardId}>{card?.name ? <Card></Card> : 'No card available'}</li>
-        ))
+          hand.map((card) => {
+            return(
+              <li key={card.cardId}>{
+                <PokemonCard
+                  pokemonClassName={pokemonClassName}
+                  name={card.name}
+                  type={card.type}
+                  pokemonId={card.pokemonId}
+                  defaultImage={card.defaultImage}
+                />
+              }</li>
+            )
+          })
       }
-      <div>{hand[0]?.name ?? 'No card available'}</div>
     </ul>
   )
 }
