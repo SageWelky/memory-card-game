@@ -24,6 +24,7 @@ export const PokemonCard = ({
   return (
     <div className={pokemonClassName}>
       <Card
+        elevation={23}
         sx={{
           boxSizing: 'border-box',
           backgroundImage:`url(${texture})`,
