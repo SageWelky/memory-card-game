@@ -10,6 +10,7 @@ import lightningTexture from '../../assets/images/lightningTexture.jpg'
 import psychicTexture from '../../assets/images/psychicTexture.png'
 import fightingTexture from '../../assets/images/fightingTexture.png'
 import colorlessTexture from '../../assets/images/colorlessTexture.png'
+import styles from './PokemonCard.module.css'
 
 export const PokemonCard = ({
   name = 'Name Not Found',
@@ -22,7 +23,7 @@ export const PokemonCard = ({
   const texture = getPokemonCardTextureByType(type);
 
   return (
-    <div className={pokemonClassName}>
+    <div className={styles.pokemonCard}>
       <Card
         elevation={23}
         sx={{

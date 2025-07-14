@@ -8,8 +8,6 @@ import './global.css'
 function App() {
   const [score, setScore] = useState(0);
 
-
-
   return (
       <div className={styles.app}>
         <Header score={score} />

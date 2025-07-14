@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BodyStartup } from './components/BodyStartup'
-import { BodyCardMatt } from './components/BodyCardMatt'
+import { BodyCardMat } from './components/BodyCardMat'
 import { usePokemonCards } from '../../../hooks/usePokemonCards'
 import styles from './Body.module.css'
 
@@ -9,12 +9,44 @@ export const Body = () => {
   const [loading, setLoading] = useState(true);
   const { currentHand, drawNewHand, shuffleHand, discardHand } = usePokemonCards();
 
+  // %%%%%%%%%%%%
+  //const idRef = useRef(0);
+  // %%%%%%%%%%%%
+
   const beginGame = () => {
     setStarted(true);
   }
 
+  // %%%%%%%%%%%%
+  /*loadData = async () => {
+
+      try {
+        idRef.current++;
+        const currRequestId = idRef.current;
+
+        const myData = await loadSomeData(id);
+
+        if (currRequestId == idRef.current) {
+          setData(myData);
+          drawNewHand(12);
+        }
+      }
+      catch (e) {
+        setError(e);
+      }
+      finally {
+        //always disable spinner so it doesn't get stuck loading
+        setLoading(false);
+      }
+  }*/
+  // %%%%%%%%%%%%
+
   useEffect(() => {
     setLoading(true);
+
+    // %%%%%%%%%%%%
+    //loadData();
+    // %%%%%%%%%%%%
 
     const initializeHand = setTimeout(async () => {
       drawNewHand(12);
@@ -31,11 +63,7 @@ export const Body = () => {
         loading ? (
           <div>Loading</div>
         ) : (
-          <BodyCardMatt
-            pokemonClassName={styles.pokemonCard}
-            mattClassName={styles.matt}
-            hand={currentHand}>
-          </BodyCardMatt>
+          <BodyCardMat hand={currentHand} />
         )
       ) : (
         <BodyStartup handleClick={beginGame}></BodyStartup>

@@ -1,4 +1,4 @@
-.matt {
+.mat {
   margin: 0;
   display: flex;
   flex-wrap: wrap;
@@ -8,13 +8,4 @@
   gap: 27px;
   padding-left: 8dvw;
   padding-right: 8dvw;
-}
-
-.pokemonCard {
-  display: flex;
-  width: 12.5dvw;
-  flex: 0 1 25%;
-  aspect-ratio: 63 / 88;
-  max-width: 100%;
-  position: relative;
 }

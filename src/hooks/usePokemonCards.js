@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { cardManager } from '../services/cardManagerSingleton.js'
 
 //PUBLIC:
 export const usePokemonCards = () => {
@@ -10,6 +11,10 @@ export const usePokemonCards = () => {
 const usePokemonCardsInternal = () => {
   const [discardPile, setDiscardPile] = useState([]);
   const [currentHand, setCurrentHand] = useState([]);
+
+  // %%%%%%%%%%%%
+  // const discardPileSet = useMemo(() => new Set(discardPile), [discardPile]);
+  // %%%%%%%%%%%%
 
   function _isInDiscardPile(targetPokemonId) {
     return discardPile.find(({ pokemonId }) => pokemonId === targetPokemonId)
@@ -33,6 +38,7 @@ const usePokemonCardsInternal = () => {
         amount = (151 - discardPile.length) * 2;
       }
     }
+
     if ( amount < 1 ) {
       throw new Error("Cannot draw less than one card for a hand.");
     }
@@ -83,51 +89,4 @@ function generateRandomPokemonId() {
   // Range as been abritrarily limited to the 151 "first-gen" pokemon,
   // but the API supports more.
   return Math.floor(Math.random() * 152).toString();
-}
-
-const drawCardById = async (pokemonId) => {
-  let drawnPokemonCard;
-
-  let cachedCard = getStoredCard(pokemonId);
-  if ( cachedCard ) {
-    drawnPokemonCard = cachedCard;
-  } else {
-    drawnPokemonCard = await getFetchCard(pokemonId);
-    console.log(drawnPokemonCard);
-    setStoredCard(drawnPokemonCard);
-  }
-
-  return drawnPokemonCard;
-}
-
-const getFetchCard = async (pokemonId) => {
-  try {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
-
-    if (!res.ok) {
-      const errorText = await res.text();
-      throw new Error(`HTTP error! Status: ${response.status}, Details: ${errorText}`);
-    }
-
-    const { name, types, sprites } = await res.json();
-    const type = types[0].type.name;
-    const defaultImage = sprites["front_default"];
-    const shinyImage = sprites["front_shiny"];
-    const cardId = crypto.randomUUID();
-
-    return { cardId, name, type, pokemonId, defaultImage, shinyImage };
-  }
-  catch (error) {
-    (error => console.error('Error fetching data:', error));
-  }
-}
-
-function getStoredCard(pokemonId) {
-  const key = pokemonId;
-  return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : null;
-}
-
-function setStoredCard({ cardId, name, type, pokemonId, defaultImage, shinyImage }) {
-  const key = pokemonId;
-  localStorage.setItem(key, JSON.stringify({ cardId, name, type, pokemonId, defaultImage, shinyImage }));
 }

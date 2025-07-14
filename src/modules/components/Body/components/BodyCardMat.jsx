@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import { PokemonCard } from '../../../common/PokemonCard'
+import styles from '../Body.module.css'
 
-export const BodyCardMatt = ({ hand, mattClassName, pokemonClassName }) => {
+
+export const BodyCardMat = ({ hand }) => {
 
   return (
-    <ul className={mattClassName}>
+    <ul className={styles.mat}>
       {
           hand.map((card) => {
             return(
               <li key={card.cardId}>{
                 <PokemonCard
-                  pokemonClassName={pokemonClassName}
                   name={card.name}
                   type={card.type}
                   pokemonId={card.pokemonId}

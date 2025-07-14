@@ -1,8 +1,9 @@
-import pokemonLogo from '../../../../assets/images/pokemonLogo.png';
+import pokemonLogo from '../../../../assets/images/pokemonLogo.png'
+import styles from '../Header.module.css'
 
-export const HeaderLogo = ({ className }) => {
+export const HeaderLogo = () => {
 
   return(
-    <img className={className} src={pokemonLogo} alt={"logo"}></img>
+    <img className={styles.logo} src={pokemonLogo} alt={"logo"}></img>
   )
 };

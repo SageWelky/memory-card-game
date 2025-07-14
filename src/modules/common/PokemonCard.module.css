@@ -1,0 +1,8 @@
+.pokemonCard {
+  display: flex;
+  width: 12.5dvw;
+  flex: 0 1 25%;
+  aspect-ratio: 63 / 88;
+  max-width: 100%;
+  position: relative;
+}

@@ -6,7 +6,7 @@ export const Header = ({ score }) => {
 
   return (
     <div className={styles.header} >
-      <HeaderLogo className={styles.logo} />
+      <HeaderLogo />
       <HeaderScore score={score} />
     </div>
   )
