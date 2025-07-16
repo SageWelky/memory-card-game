@@ -115,5 +115,5 @@ const getPokemonCardTextureByType = (pokemonType) => {
   if (type === "normal" || type === "flying" || type === "dragon") {
     texture = colorlessTexture;
   }
-  return (texture);
+  return (texture)
 }

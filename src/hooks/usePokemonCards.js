@@ -80,7 +80,7 @@ const usePokemonCardsInternal = () => {
 
   const discardHand = () => _discardOrReplaceHand();
 
-  return { currentHand, discardPile, drawNewHand, shuffleHand, discardHand };
+  return { currentHand, discardPile, drawNewHand, shuffleHand, discardHand }
 }
 
 
@@ -88,5 +88,5 @@ const usePokemonCardsInternal = () => {
 function generateRandomPokemonId() {
   // Range as been abritrarily limited to the 151 "first-gen" pokemon,
   // but the API supports more.
-  return Math.floor(Math.random() * 152).toString();
+  return Math.floor(Math.random() * 152).toString()
 }

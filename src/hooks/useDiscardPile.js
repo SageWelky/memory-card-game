@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 export function useDiscardPile() {
   const [discardPile, setDiscardPile] = useState([]);
@@ -11,5 +11,5 @@ export function useDiscardPile() {
     return discardPile.some(card => card.pokemonId === pokemonId);
   };
 
-  return { discardPile, addToDiscardPile, isInDiscardPile };
+  return { discardPile, addToDiscardPile, isInDiscardPile }
 }
