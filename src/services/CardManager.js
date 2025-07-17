@@ -48,7 +48,14 @@ export class CardManager {
 
   setStoredCard({ cardId, name, type, pokemonId, defaultImage, shinyImage }) {
     const key = pokemonId;
-    localStorage.setItem(key, JSON.stringify({ cardId, name, type, pokemonId, defaultImage, shinyImage }));
+    localStorage.setItem(key, JSON.stringify({
+      cardId,
+      name,
+      type,
+      pokemonId,
+      defaultImage,
+      shinyImage
+    }));
   }
 
 }

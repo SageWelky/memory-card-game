@@ -3,7 +3,6 @@ import { cardManager } from '../services/cardManagerSingletoner'
 
 export function useCardDraw({ discardPile, isInDiscardPile }) {
 
-
   const isInDrawn = (drawnCards, id) =>
     drawnCards.some(card => card.pokemonId === id);
 

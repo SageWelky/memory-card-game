@@ -94,6 +94,7 @@ export const PokemonCard = ({
 const getPokemonCardTextureByType = (pokemonType) => {
   let type = pokemonType;
   let texture;
+
   if (type === "grass" || type === "bug" || type === "poison") {
     texture = grassTexture;
   }
