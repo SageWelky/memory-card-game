@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PokemonCardsProvider } from './context/PokemonCardsProvider'
 import { Header } from './modules/components/Header/Header'
 import { Body } from './modules/components/Body/Body'
 import { Footer } from './modules/components/Footer/Footer'
@@ -9,11 +10,13 @@ function App() {
   const [score, setScore] = useState(0);
 
   return (
-      <div className={styles.app}>
-        <Header score={score} />
-        <Body />
-        <Footer />
-      </div>
+      <PokemonCardsProvider>
+        <div className={styles.app}>
+          <Header score={score} />
+          <Body />
+          <Footer />
+        </div>
+      </PokemonCardsProvider>
   )
 }
 

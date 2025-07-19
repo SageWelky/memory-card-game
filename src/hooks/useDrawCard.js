@@ -1,17 +1,25 @@
-import { generateRandomPokemonId } from '../utils/cardUtils'
-import { cardManager } from '../services/cardManagerSingletoner'
+import {
+  ALL_IDS,
+  getUsedIds,
+  getAvailableIds,
+  getRandomIdFromList
+} from '../utils/cardUtils'
+import { cardManager } from '../services/cardManagerSingleton'
 
-export function useCardDraw({ discardPile, isInDiscardPile }) {
+export function useDrawCard({ discardPile, isInDiscardPile }) {
 
-  const isInDrawn = (drawnCards, id) =>
-    drawnCards.some(card => card.pokemonId === id);
+  const isInDrawn = (drawnCards, id) => {
+    drawnCards.some(card => card.pokemonId === id)
+  }
 
   const drawNewHand = async (amount) => {
-    if ((Math.ceil(amount / 2) + discardPile.length) > 151) {
-      if (discardPile.length === 151) {
+    const maxCards = 151;
+
+    if ((Math.ceil(amount / 2) + discardPile.length) > maxCards) {
+      if (discardPile.length === maxCards) {
         throw new Error("No unseen cards left to draw.");
       } else {
-        amount = (151 - discardPile.length) * 2;
+        amount = (maxCards - discardPile.length) * 2;
       }
     }
 
@@ -20,19 +28,28 @@ export function useCardDraw({ discardPile, isInDiscardPile }) {
     }
 
     const drawnCards = [];
+    const half = Math.ceil(amount / 2);
 
     while (drawnCards.length < amount) {
+      const usedIds = getUsedIds(discardPile, drawnCards);
+      const availableIds = ALL_IDS.filter(id => !usedIds.has(id));
+
+      if (availableIds.length === 0) {
+        throw new Error("No available Pokémon left to draw.");
+      }
+
       let newId;
-      const half = Math.ceil(amount / 2);
 
       if (drawnCards.length < half) {
-        do {
-          newId = generateRandomPokemonId();
-        } while (isInDrawn(drawnCards, newId) || isInDiscardPile(newId));
+        // Prioritize unseen cards: not in discardPile or already drawn
+        const unseenIds = availableIds.filter(id => !discardPile.some(c => c.pokemonId === id));
+        if (unseenIds.length === 0) {
+          throw new Error("No unseen Pokémon left to draw.");
+        }
+        newId = getRandomIdFromList(unseenIds);
       } else {
-        do {
-          newId = generateRandomPokemonId();
-        } while (isInDrawn(drawnCards, newId));
+        // Accept duplicates from discard pile
+        newId = getRandomIdFromList(availableIds);
       }
 
       const card = await cardManager.getCardById(newId);
@@ -40,7 +57,8 @@ export function useCardDraw({ discardPile, isInDiscardPile }) {
     }
 
     return drawnCards
-  };
+  }
+
 
   return { drawNewHand }
 }

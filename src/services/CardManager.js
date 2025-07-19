@@ -6,17 +6,18 @@ export class CardManager {
 
   getCardById = async (pokemonId) => {
     let drawnPokemonCard;
+    let cachedCard = this.getStoredCard(pokemonId);
 
-    let cachedCard = getStoredCard(pokemonId);
     if ( cachedCard ) {
       drawnPokemonCard = cachedCard;
+
     } else {
-      drawnPokemonCard = await getFetchCard(pokemonId);
+      drawnPokemonCard = await this.getFetchCard(pokemonId);
       console.log(drawnPokemonCard);
-      setStoredCard(drawnPokemonCard);
+      this.setStoredCard(drawnPokemonCard);
     }
 
-    return drawnPokemonCard;
+    return drawnPokemonCard
   }
 
   getFetchCard = async (pokemonId) => {
@@ -36,6 +37,7 @@ export class CardManager {
 
       return { cardId, name, type, pokemonId, defaultImage, shinyImage };
     }
+
     catch (error) {
       (error => console.error('Error fetching data:', error));
     }
@@ -43,7 +45,8 @@ export class CardManager {
 
   getStoredCard(pokemonId) {
     const key = pokemonId;
-    return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : null;
+
+    return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : null
   }
 
   setStoredCard({ cardId, name, type, pokemonId, defaultImage, shinyImage }) {

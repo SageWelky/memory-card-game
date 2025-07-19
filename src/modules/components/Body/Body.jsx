@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { BodyStartup } from './components/BodyStartup'
 import { BodyCardMat } from './components/BodyCardMat'
-import { usePokemonCards } from '../../../hooks/usePokemonCards'
+import { usePokemonCards } from '../../../context/PokemonCardsProvider'
 import styles from './Body.module.css'
 
 export const Body = () => {

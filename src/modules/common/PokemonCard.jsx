@@ -12,18 +12,20 @@ import fightingTexture from '../../assets/images/fightingTexture.png'
 import colorlessTexture from '../../assets/images/colorlessTexture.png'
 import styles from './PokemonCard.module.css'
 
+const noop = () => {};
+
 export const PokemonCard = ({
+  handleClick = noop,
   name = 'Name Not Found',
   type = 'Type Not Found',
   pokemonId = 'N/A',
   defaultImage = missingNo,
   pokemonClassName,
   }) => {
-
   const texture = getPokemonCardTextureByType(type);
 
   return (
-    <div className={styles.pokemonCard}>
+    <div className={styles.pokemonCard} onClick={handleClick}>
       <Card
         elevation={23}
         sx={{

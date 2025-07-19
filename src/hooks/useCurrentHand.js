@@ -12,7 +12,7 @@ export function useCurrentHand() {
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     setCurrentHand(shuffled);
-  };
+  }
 
   return { currentHand, replaceHand, shuffleHand }
 }
