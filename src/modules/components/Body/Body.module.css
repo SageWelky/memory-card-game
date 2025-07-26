@@ -10,6 +10,10 @@
   padding-right: 8dvw;
 }
 
+.list {
+  perspective: 1000px;
+}
+
 .loading {
   display: flex;
   justify-content: center;

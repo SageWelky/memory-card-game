@@ -1,7 +1,10 @@
+import { useGameLogic } from '../../context/GameContext'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
+import { motion } from 'framer-motion'
+import pokemonCardBack from '../../assets/images/pokemonCardBack.jpg'
 import missingNo from '../../assets/images/missingNo.webp'
 import grassTexture from '../../assets/images/grassTexture.jpg'
 import fireTexture from '../../assets/images/fireTexture.jpg'
@@ -22,72 +25,111 @@ export const PokemonCard = ({
   defaultImage = missingNo,
   pokemonClassName,
   }) => {
+  const { flipped } = useGameLogic();
   const texture = getPokemonCardTextureByType(type);
 
+  const spring = {
+    type: "spring",
+    damping: 20,
+    stiffness: 150,
+  };
+
+  const flipVariants = {
+    faceUp: { rotateY: 0 },
+    faceDown: { rotateY: 180 },
+  };
+
   return (
-    <div className={styles.pokemonCard} onClick={handleClick}>
-      <Card
-        elevation={23}
-        sx={{
-          boxSizing: 'border-box',
-          backgroundImage:`url(${texture})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% auto',
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          paddingBottom: '0.5dvw',
-        }}
-      >
-        <CardHeader
-          title={name}
-          titleTypographyProps={{ fontSize: '1.25dvw' }}
-          subheader={type}
-          subheaderTypographyProps={{ fontSize: '0.8dvw' }}
+    <motion.div
+      className={styles.pokemonCard}
+      onClick={handleClick}
+      initial="faceDown"
+      animate={flipped ? "faceDown" : "faceUp"}
+      variants={flipVariants}
+      transition={{ duration: 0.6 }}
+      style={{ perspective: 1000 }}
+    >
+      <div className={styles.cardFront}>
+        <Card
+          elevation={23}
           sx={{
-            background: 'rgba(255, 255, 255, 0.7)',
-            padding: '0.4dvw',
-            '.MuiCardHeader-content': {
-              overflow: 'hidden',
-            }
-          }}
-        />
-        <CardMedia
-          component="img"
-          image={defaultImage}
-          alt="PokemonImage"
-          sx={{
-            width: '65%',
-            margin: '0 auto',
-            objectFit: 'contain',
-          }}
-        />
-        <CardContent
-          sx={{
-            aspectRatio: '1 / 1',
-            fontSize: '0.7dvw',
-            alignSelf: 'center',
+            boxSizing: 'border-box',
+            backgroundImage:`url(${texture})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: '100% auto',
+            height: '100%',
+            width: '100%',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '1.3dvw',
-            height: '1.3dvw',
-            textAlign: 'center',
-            fontWeight: 'bold',
-            borderRadius: '50%',
-            boxShadow: 'inset 1px 1px 5px 3px white',
-             padding: 0,
-            '&:last-child': {
-              paddingBottom: 0,
-            },
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            paddingBottom: '0.5dvw',
           }}
         >
-          {pokemonId}
-        </CardContent>
-      </Card>
-    </div>
+          <CardHeader
+            title={name}
+            titleTypographyProps={{ fontSize: '1.25dvw' }}
+            subheader={type}
+            subheaderTypographyProps={{ fontSize: '0.8dvw' }}
+            sx={{
+              background: 'rgba(255, 255, 255, 0.7)',
+              padding: '0.4dvw',
+              '.MuiCardHeader-content': {
+                overflow: 'hidden',
+              }
+            }}
+          />
+          <CardMedia
+            component="img"
+            image={defaultImage}
+            alt="PokemonImage"
+            sx={{
+              width: '65%',
+              margin: '0 auto',
+              objectFit: 'contain',
+            }}
+          />
+          <CardContent
+            sx={{
+              aspectRatio: '1 / 1',
+              fontSize: '0.7dvw',
+              alignSelf: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '1.3dvw',
+              height: '1.3dvw',
+              textAlign: 'center',
+              fontWeight: 'bold',
+              borderRadius: '50%',
+              boxShadow: 'inset 1px 1px 5px 3px white',
+               padding: 0,
+              '&:last-child': {
+                paddingBottom: 0,
+              },
+            }}
+          >
+            {pokemonId}
+          </CardContent>
+        </Card>
+      </div>
+      <div className={styles.cardBack}>
+        <Card
+          elevation={23}
+          sx={{
+            boxSizing: 'border-box',
+            backgroundImage:`url(${pokemonCardBack})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: '100% auto',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            paddingBottom: '0.5dvw',
+          }}
+        ></Card>
+      </div>
+    </motion.div>
   )
 }
 

@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { usePokemonCardsInternal } from './usePokemonCards'
+import { wait } from '../utils/cardUtils'
 
 export function useGameLogicInternal() {
   const {
@@ -9,30 +10,42 @@ export function useGameLogicInternal() {
     clearDiscardPile
   } = usePokemonCardsInternal();
 
+  const [animating, setAnimating] = useState(false);
+  const [shuffleToCenter, setShuffleToCenter] = useState(false);
+  const [flipped, setFlipped] = useState(false);
   const [started, setStarted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [clickedCardIds, setClickedCardIds] = useState(new Set());
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
 
-  const handleCardClick = useCallback(async (cardId) => {
-    if (gameOver) {
-      console.log("Game is Over Already.");
+  const handleCardClick = async (cardId) => {
+    if (animating || gameOver) {
       return
     }
 
     if (clickedCardIds.has(cardId)) {
-      console.log("You Have Ended the Game.");
       setGameOver(true);
       return
     }
 
-    console.log("Correct Click.");
+    setAnimating(true);
+    setFlipped(true);
+    await wait(600);
+    setShuffleToCenter(true);
+
     setClickedCardIds(prev => new Set(prev).add(cardId));
     setScore(prev => prev + 1);
 
     await drawNewHand(12);
-  }, [clickedCardIds, discardHand, drawNewHand, gameOver]);
+
+    await wait(400);
+
+    setShuffleToCenter(false);
+    await wait(500);
+    setFlipped(false);
+    setAnimating(false);
+  };
 
   const resetGame = () => {
     setClickedCardIds(new Set());
@@ -92,6 +105,9 @@ export function useGameLogicInternal() {
   return {
     started,
     loading,
+    flipped,
+    animating,
+    shuffleToCenter,
     currentHand,
     score,
     gameOver,

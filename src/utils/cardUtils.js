@@ -19,3 +19,5 @@ export function getRandomIdFromList(list) {
 export function isInList(list, id) {
   return list.some(item => item.pokemonId === id)
 }
+
+export const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
