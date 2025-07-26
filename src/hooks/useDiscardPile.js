@@ -1,15 +1,24 @@
 import { useState } from 'react'
 
 export function useDiscardPile() {
-  const [discardPile, setDiscardPile] = useState([]);
+  const [discardPileIds, setDiscardPileIds] = useState(() => new Set());
+
+  const clearDiscardPile = () => {
+    setDiscardPileIds(() => new Set());
+  }
 
   const addToDiscardPile = (cards = []) => {
-    setDiscardPile(prev => [...prev, ...cards]);
-  }
+    setDiscardPileIds(prev => {
+      const updated = new Set(prev);
+      for (const card of cards) {
+        updated.add(card.pokemonId);
+      }
 
-  const isInDiscardPile = (pokemonId) => {
-    return discardPile.some(card => card.pokemonId === pokemonId);
-  }
+      return updated
+    });
+  };
 
-  return { discardPile, addToDiscardPile, isInDiscardPile }
+  const isInDiscardPile = (pokemonId) => discardPileIds.has(pokemonId);
+
+  return { discardPileIds, addToDiscardPile, isInDiscardPile, clearDiscardPile }
 }

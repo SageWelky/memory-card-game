@@ -1,11 +1,12 @@
 export const ALL_IDS = Array.from({ length: 151 }, (_, i) => (i + 1).toString());
 
-export function getUsedIds(discardPile, drawnCards = []) {
-  return new Set([...discardPile, ...drawnCards].map(card => card.pokemonId))
+export function getUsedIds(discardPileIds, drawnCards = []) {
+  const drawnIds = drawnCards.map(card => card.pokemonId);
+  return new Set([...discardPileIds, ...drawnIds])
 }
 
-export function getAvailableIds(discardPile, drawnCards = []) {
-  const usedIds = getUsedIds(discardPile, drawnCards);
+export function getAvailableIds(discardPileIds, drawnCards = []) {
+  const usedIds = getUsedIds(discardPileIds, drawnCards);
   return ALL_IDS.filter(id => !usedIds.has(id))
 }
 

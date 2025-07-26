@@ -35,7 +35,7 @@ export class CardManager {
       const shinyImage = sprites["front_shiny"];
       const cardId = crypto.randomUUID();
 
-      return { cardId, name, type, pokemonId, defaultImage, shinyImage };
+      return { cardId, name, type, pokemonId, defaultImage, shinyImage }
     }
 
     catch (error) {

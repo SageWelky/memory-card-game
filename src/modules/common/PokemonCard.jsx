@@ -1,7 +1,7 @@
 import Card from '@mui/material/Card'
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader'
+import CardMedia from '@mui/material/CardMedia'
+import CardContent from '@mui/material/CardContent'
 import missingNo from '../../assets/images/missingNo.webp'
 import grassTexture from '../../assets/images/grassTexture.jpg'
 import fireTexture from '../../assets/images/fireTexture.jpg'
@@ -33,7 +33,6 @@ export const PokemonCard = ({
           backgroundImage:`url(${texture})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100% auto',
-
           height: '100%',
           width: '100%',
           display: 'flex',
@@ -48,7 +47,6 @@ export const PokemonCard = ({
           subheader={type}
           subheaderTypographyProps={{ fontSize: '0.8dvw' }}
           sx={{
-            // fontSize: '2dvw',
             background: 'rgba(255, 255, 255, 0.7)',
             padding: '0.4dvw',
             '.MuiCardHeader-content': {

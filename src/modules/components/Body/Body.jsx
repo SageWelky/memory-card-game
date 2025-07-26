@@ -1,73 +1,32 @@
 import { useState, useEffect } from 'react'
+import Button from '@mui/material/Button'
 import { BodyStartup } from './components/BodyStartup'
 import { BodyCardMat } from './components/BodyCardMat'
-import { usePokemonCards } from '../../../context/PokemonCardsProvider'
+import { useGameLogic } from '../../../context/GameContext'
 import styles from './Body.module.css'
 
 export const Body = () => {
-  const [started, setStarted] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const { currentHand, drawNewHand, shuffleHand, discardHand } = usePokemonCards();
-
-  // %%%%%%%%%%%%
-  //const idRef = useRef(0);
-  // %%%%%%%%%%%%
-
-  const beginGame = () => {
-    setStarted(true);
-  }
-
-  // %%%%%%%%%%%%
-  /*loadData = async () => {
-
-      try {
-        idRef.current++;
-        const currRequestId = idRef.current;
-
-        const myData = await loadSomeData(id);
-
-        if (currRequestId == idRef.current) {
-          setData(myData);
-          drawNewHand(12);
-        }
-      }
-      catch (e) {
-        setError(e);
-      }
-      finally {
-        //always disable spinner so it doesn't get stuck loading
-        setLoading(false);
-      }
-  }*/
-  // %%%%%%%%%%%%
-
-  useEffect(() => {
-    setLoading(true);
-
-    // %%%%%%%%%%%%
-    //loadData();
-    // %%%%%%%%%%%%
-
-    const initializeHand = setTimeout(async () => {
-      drawNewHand(12);
-      setLoading(false);
-    }, 800);
-    return () => {
-      clearTimeout(initializeHand);
-    }
-  }, []);
+  const { drawNewHand, gameOver, startGame, resetGame, started, loading } = useGameLogic();
 
   return (
     <>
       {started ? (
         loading ? (
-          <div>Loading</div>
+          <div className={styles.loading}>Loading...</div>
         ) : (
-          <BodyCardMat hand={currentHand} />
+          <BodyCardMat />
         )
       ) : (
-        <BodyStartup handleClick={beginGame}></BodyStartup>
+        <BodyStartup handleClick={() => startGame()}></BodyStartup>
       )}
+      {gameOver && (
+            <div className={styles.gameOverBackdrop}>
+              <div className={styles.gameOverModal}>
+                <p className={styles.modalMessage}>You clicked a duplicate card!</p>
+                <Button variant="contained" onClick={() => resetGame()}>Play Again</Button>
+              </div>
+            </div>
+          )}
     </>
   )
 }

@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import Button from '@mui/material/Button'
+import styles from '../Body.module.css'
 
 export const BodyStartup = ({ handleClick }) => {
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div className={styles.startButton}>
       <Button variant="contained" onClick={handleClick}>Start Game</Button>
     </div>
   )
