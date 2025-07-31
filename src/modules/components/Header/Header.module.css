@@ -9,5 +9,15 @@
 .logo {
   width: 200px;
   height: auto;
-  filter: drop-shadow(0 0 0.75rem rgb(60, 90, 166))
+  filter: drop-shadow(0 0 0.75rem rgb(60, 90, 166));
+}
+
+.score {
+  width: 200px;
+  text-align: center;
+  align-content: center;
+  color: rgb(60, 90, 166);
+  text-shadow: rgba(255, 205, 5) 1px 1px 10px;
+  font-weight: 800;
+  background: radial-gradient(closest-side, rgba(199, 161, 8, 0.50) 55%, rgba(255, 205, 5, 1.0) 65%, rgba(42, 117, 187, 0.25) 75%, rgba(0, 0, 0, 0)) 100%;
 }

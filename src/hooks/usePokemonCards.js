@@ -5,10 +5,10 @@ import { useDrawCard } from './useDrawCard'
 export function usePokemonCardsInternal() {
   const { discardPileIds, addToDiscardPile, isInDiscardPile, clearDiscardPile } = useDiscardPile();
   const { currentHand, replaceHand, shuffleHand } = useCurrentHand();
-  const { drawNewHand: _drawNewHand } = useDrawCard({ discardPileIds });
+  const { drawNewCards: _drawNewCards } = useDrawCard({ discardPileIds });
 
   const drawNewHand = async (amount) => {
-    const newHand = await _drawNewHand(amount);
+    const newHand = await _drawNewCards(amount);
 
     const newToDiscard = currentHand.filter(
       card => !isInDiscardPile(card.pokemonId)

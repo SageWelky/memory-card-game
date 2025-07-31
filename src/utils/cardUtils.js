@@ -12,7 +12,7 @@ export function getAvailableIds(discardPileIds, drawnCards = []) {
 
 export function getRandomIdFromList(list) {
   if (list.length === 0) throw new Error("Cannot select from an empty list");
-  const randomIndex = Math.floor(Math.random() * list.length);
+  const randomIndex = Math.floor(Math.random() * (list.length));
   return list[randomIndex]
 }
 
@@ -21,3 +21,8 @@ export function isInList(list, id) {
 }
 
 export const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+export function getImageSrcFromCard(card, variant = "default") {
+  const blob = variant === "shiny" ? card.shinyImage : card.defaultImage;
+  return blob instanceof Blob ? URL.createObjectURL(blob) : blob
+}

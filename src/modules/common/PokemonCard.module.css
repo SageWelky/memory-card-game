@@ -1,11 +1,13 @@
 .pokemonCard {
   display: flex;
-  width: 12.5dvw;
+  width: 11.5dvw;
   flex: 0 1 25%;
   aspect-ratio: 63 / 88;
   max-width: 100%;
   position: relative;
   transform-style: preserve-3d;
+  box-shadow: 1px 1px 5px black;
+  border-radius: 1dvw;
 }
 
 .cardFront, .cardBack {
@@ -14,7 +16,7 @@
   backface-visibility: hidden;
   position: absolute;
   top: 0; left: 0;
-  border-radius: 12px;
+  border-radius: 0.75dvw;
   overflow: hidden;
 }
 

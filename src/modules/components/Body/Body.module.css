@@ -1,5 +1,9 @@
 .mat {
-  margin: 0;
+  min-height: 35dvw;
+  margin-left: 1dvw;
+  margin-right: 1dvw;
+  padding-top: 7px;
+  padding-bottom: 7px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -8,6 +12,12 @@
   gap: 27px;
   padding-left: 8dvw;
   padding-right: 8dvw;
+  background-image: url('../../../assets/images/cardMatImage.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  filter: drop-shadow(0 0 0.75rem black);
+  box-shadow: rgba(60, 90, 166, 0.5) 10px 10px 5px;
 }
 
 .list {
@@ -18,6 +28,9 @@
   display: flex;
   justify-content: center;
   font-size: 5dvw;
+  font-weight: 800;
+  color: #ffcb05;
+  text-shadow: #3c5aa6 15px 15px 5px;
 }
 
 .startButton {
@@ -56,4 +69,64 @@
 
 .modalMessage {
   font-size: calc(16px + 2dvw);
+}
+
+.matContainer {
+  position: relative;
+  min-height: 100%;
+}
+
+.absoluteOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.tapBarWrapper {
+  display: flex;
+  justify-content: center;
+  width: 90dvw;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tapBar {
+  text-align: center;
+  transform-origin: center;
+  width: 70dvw;
+  height: 5dvw;
+  border: 8px solid #222224;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  overflow: hidden;
+  box-shadow: rgba(60, 90, 166, 0.5) 18px 18px 8px;
+}
+
+.barFill {
+  height: 5dvw;
+  background-color: #f00000;
+  box-shadow: #3c5aa6 1px 1px 5px;
+}
+
+.tapHeaderWrapper {
+  width: 90dvw;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tapHeader {
+  color: #ee1515;
+  font-size: 5dvw;
+  font-weight: 800;
+  text-align: center;
+  transform-origin: center;
 }

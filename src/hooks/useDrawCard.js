@@ -6,7 +6,7 @@ import { cardManager } from '../services/cardManagerSingleton'
 
 export function useDrawCard({ discardPileIds }) {
 
-  const drawNewHand = async (amount) => {
+  const drawNewCards = async (amount) => {
     const totalPossibleCards = 151;
     const discardSize = discardPileIds.size;
 
@@ -48,5 +48,5 @@ export function useDrawCard({ discardPileIds }) {
     return drawnCards
   }
 
-  return { drawNewHand }
+  return { drawNewCards }
 }

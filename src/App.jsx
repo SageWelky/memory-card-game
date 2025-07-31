@@ -10,6 +10,7 @@ function App() {
   return (
       <GameProvider>
         <div className={styles.app}>
+          {/* add a backdrop layer for the behind-cardMat animations/gif */}
           <Header />
           <Body />
           <Footer />

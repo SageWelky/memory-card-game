@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react'
 import { useGameLogic } from '../../context/GameContext'
+import { getImageSrcFromCard } from '../../utils/cardUtils'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
@@ -24,7 +26,8 @@ export const PokemonCard = ({
   pokemonId = 'N/A',
   defaultImage = missingNo,
   pokemonClassName,
-  }) => {
+}) => {
+  const [imgSrc, setImgSrc] = useState(null);
   const { flipped } = useGameLogic();
   const texture = getPokemonCardTextureByType(type);
 
@@ -39,14 +42,32 @@ export const PokemonCard = ({
     faceDown: { rotateY: 180 },
   };
 
+  useEffect(() => {
+    if (!defaultImage) return;
+
+    let objectUrl;
+
+    if (defaultImage instanceof Blob) {
+      objectUrl = URL.createObjectURL(defaultImage);
+      setImgSrc(objectUrl);
+    } else {
+      setImgSrc(defaultImage);
+    }
+
+    return () => {
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    }
+  }, [defaultImage]);
+
   return (
     <motion.div
       className={styles.pokemonCard}
       onClick={handleClick}
       initial="faceDown"
+      layout={false}
       animate={flipped ? "faceDown" : "faceUp"}
       variants={flipVariants}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.3 }}
       style={{ perspective: 1000 }}
     >
       <div className={styles.cardFront}>
@@ -63,6 +84,7 @@ export const PokemonCard = ({
             flexDirection: 'column',
             justifyContent: 'space-between',
             paddingBottom: '0.5dvw',
+            borderRadius: '0px',
           }}
         >
           <CardHeader
@@ -80,7 +102,7 @@ export const PokemonCard = ({
           />
           <CardMedia
             component="img"
-            image={defaultImage}
+            image={imgSrc}
             alt="PokemonImage"
             sx={{
               width: '65%',

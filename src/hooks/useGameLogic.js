@@ -12,12 +12,20 @@ export function useGameLogicInternal() {
 
   const [animating, setAnimating] = useState(false);
   const [shuffleToCenter, setShuffleToCenter] = useState(false);
+  const [returningToGrid, setReturningToGrid] = useState(false);
+  const [hideOriginal, setHideOriginal] = useState(false);
+  const [grabCoordinates, setGrabCoordinates] = useState(false);
+  const [jostle, setJostle] = useState(false);
+  const [jostleBarCounter, setJostleBarCounter] = useState(0);
+  const [tapMode, setTapMode] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const [started, setStarted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [clickedCardIds, setClickedCardIds] = useState(new Set());
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+
+  const maxJostles = 10;
 
   const handleCardClick = async (cardId) => {
     if (animating || gameOver) {
@@ -31,20 +39,48 @@ export function useGameLogicInternal() {
 
     setAnimating(true);
     setFlipped(true);
-    await wait(600);
-    setShuffleToCenter(true);
+    await wait(300);
 
     setClickedCardIds(prev => new Set(prev).add(cardId));
     setScore(prev => prev + 1);
-
     await drawNewHand(12);
+    setGrabCoordinates(true);
+    await wait(200);
 
-    await wait(400);
+    setHideOriginal(true);
+    setShuffleToCenter(true);
+    await wait(900);
+    setTapMode(true);
+  };
+
+  const endShuffle = async () => {
+    setReturningToGrid(true);
+    await wait(700);
 
     setShuffleToCenter(false);
-    await wait(500);
+    await wait(750);
+
+    setHideOriginal(false);
+    setReturningToGrid(false);
+    await wait(300);
+
+    setGrabCoordinates(false);
     setFlipped(false);
+    await wait(400);
     setAnimating(false);
+    setJostleBarCounter(0);
+  };
+
+  const handleShuffleClick = async (cardId) => {
+    setJostle(true);
+    await wait(100);
+    setJostle(false);
+    setJostleBarCounter(prev => prev + 1);
+    if (jostleBarCounter > maxJostles - 1) {
+      await wait(400);
+      setTapMode(false);
+      endShuffle();
+    }
   };
 
   const resetGame = () => {
@@ -96,7 +132,7 @@ export function useGameLogicInternal() {
     const initializeHand = setTimeout(async () => {
       drawNewHand(12);
       setLoading(false);
-    }, 800);
+    }, 400);
     return () => {
       clearTimeout(initializeHand);
     }
@@ -106,13 +142,20 @@ export function useGameLogicInternal() {
     started,
     loading,
     flipped,
-    animating,
     shuffleToCenter,
+    returningToGrid,
+    hideOriginal,
+    grabCoordinates,
+    jostle,
+    jostleBarCounter,
+    maxJostles,
+    tapMode,
     currentHand,
     score,
     gameOver,
     drawNewHand,
     handleCardClick,
+    handleShuffleClick,
     startGame,
     resetGame,
   }

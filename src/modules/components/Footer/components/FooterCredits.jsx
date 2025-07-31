@@ -1,7 +1,8 @@
+import styles from '../Footer.module.css'
 
 export const FooterCredits = () => {
 
   return (
-    <div>Made by Sage Welky</div>
+    <div className={styles.credits}>Made by Sage Welky</div>
   )
 }
