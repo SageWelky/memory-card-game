@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Button from '@mui/material/Button'
 import { BodyStartup } from './components/BodyStartup'
-import { BodyCardMat } from './components/BodyCardMat'
+import { BodyCardMat } from './components/BodyCardMat/BodyCardMat'
 import { useGameLogic } from '../../../context/GameContext'
 import styles from './Body.module.css'
 

@@ -1,4 +1,5 @@
 import { GameProvider } from './context/GameContext'
+import { ShuffleProvider } from './context/ShuffleContext'
 import { Header } from './modules/components/Header/Header'
 import { Body } from './modules/components/Body/Body'
 import { Footer } from './modules/components/Footer/Footer'
@@ -9,12 +10,13 @@ function App() {
 
   return (
       <GameProvider>
-        <div className={styles.app}>
-          {/* add a backdrop layer for the behind-cardMat animations/gif */}
-          <Header />
-          <Body />
-          <Footer />
-        </div>
+        <ShuffleProvider>
+          <div className={styles.app}>
+            <Header />
+            <Body />
+            <Footer />
+          </div>
+        </ShuffleProvider>
       </GameProvider>
   )
 }

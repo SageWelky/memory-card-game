@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useGameLogic } from '../../context/GameContext'
+import { useShuffleAnimations } from '../../context/ShuffleContext'
 import { getImageSrcFromCard } from '../../utils/cardUtils'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -28,7 +28,7 @@ export const PokemonCard = ({
   pokemonClassName,
 }) => {
   const [imgSrc, setImgSrc] = useState(null);
-  const { flipped } = useGameLogic();
+  const { flipped } = useShuffleAnimations();
   const texture = getPokemonCardTextureByType(type);
 
   const spring = {

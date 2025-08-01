@@ -1,6 +1,5 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { usePokemonCardsInternal } from './usePokemonCards'
-import { wait } from '../utils/cardUtils'
 
 export function useGameLogicInternal() {
   const {
@@ -10,78 +9,19 @@ export function useGameLogicInternal() {
     clearDiscardPile
   } = usePokemonCardsInternal();
 
-  const [animating, setAnimating] = useState(false);
-  const [shuffleToCenter, setShuffleToCenter] = useState(false);
-  const [returningToGrid, setReturningToGrid] = useState(false);
-  const [hideOriginal, setHideOriginal] = useState(false);
-  const [grabCoordinates, setGrabCoordinates] = useState(false);
-  const [jostle, setJostle] = useState(false);
-  const [jostleBarCounter, setJostleBarCounter] = useState(0);
-  const [tapMode, setTapMode] = useState(false);
-  const [flipped, setFlipped] = useState(false);
   const [started, setStarted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [clickedCardIds, setClickedCardIds] = useState(new Set());
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
 
-  const maxJostles = 10;
-
-  const handleCardClick = async (cardId) => {
-    if (animating || gameOver) {
-      return
-    }
-
-    if (clickedCardIds.has(cardId)) {
-      setGameOver(true);
-      return
-    }
-
-    setAnimating(true);
-    setFlipped(true);
-    await wait(300);
-
-    setClickedCardIds(prev => new Set(prev).add(cardId));
+  const incrementScore = () => {
     setScore(prev => prev + 1);
-    await drawNewHand(12);
-    setGrabCoordinates(true);
-    await wait(200);
+  }
 
-    setHideOriginal(true);
-    setShuffleToCenter(true);
-    await wait(900);
-    setTapMode(true);
-  };
-
-  const endShuffle = async () => {
-    setReturningToGrid(true);
-    await wait(700);
-
-    setShuffleToCenter(false);
-    await wait(750);
-
-    setHideOriginal(false);
-    setReturningToGrid(false);
-    await wait(300);
-
-    setGrabCoordinates(false);
-    setFlipped(false);
-    await wait(400);
-    setAnimating(false);
-    setJostleBarCounter(0);
-  };
-
-  const handleShuffleClick = async (cardId) => {
-    setJostle(true);
-    await wait(100);
-    setJostle(false);
-    setJostleBarCounter(prev => prev + 1);
-    if (jostleBarCounter > maxJostles - 1) {
-      await wait(400);
-      setTapMode(false);
-      endShuffle();
-    }
-  };
+  const endGame = () => {
+    setGameOver(true);
+  }
 
   const resetGame = () => {
     setClickedCardIds(new Set());
@@ -141,22 +81,15 @@ export function useGameLogicInternal() {
   return {
     started,
     loading,
-    flipped,
-    shuffleToCenter,
-    returningToGrid,
-    hideOriginal,
-    grabCoordinates,
-    jostle,
-    jostleBarCounter,
-    maxJostles,
-    tapMode,
     currentHand,
     score,
     gameOver,
+    clickedCardIds,
     drawNewHand,
-    handleCardClick,
-    handleShuffleClick,
     startGame,
+    endGame,
     resetGame,
+    setClickedCardIds,
+    incrementScore,
   }
 }
