@@ -5,7 +5,6 @@ import { useShuffleAnimations } from '../../../../../context/ShuffleContext'
 import { motion } from 'framer-motion'
 import styles from '../../Body.module.css'
 
-
 export const BodyCardMat = () => {
   const {
     currentHand,
@@ -46,7 +45,7 @@ export const BodyCardMat = () => {
       </ul>
 
       {(shuffleToCenter || returningToGrid || tapMode) && (
-        <ShuffleOverlay />
+        <ShuffleOverlay currentHand={currentHand}/>
       )}
     </div>
   );

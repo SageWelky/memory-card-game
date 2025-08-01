@@ -1,20 +1,15 @@
 import { useState, useEffect } from 'react'
-import { useShuffleAnimations } from '../../context/ShuffleContext'
-import { getImageSrcFromCard } from '../../utils/cardUtils'
+import { motion } from 'framer-motion'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
-import { motion } from 'framer-motion'
 import pokemonCardBack from '../../assets/images/pokemonCardBack.jpg'
 import missingNo from '../../assets/images/missingNo.webp'
-import grassTexture from '../../assets/images/grassTexture.jpg'
-import fireTexture from '../../assets/images/fireTexture.jpg'
-import waterTexture from '../../assets/images/waterTexture.jpg'
-import lightningTexture from '../../assets/images/lightningTexture.jpg'
-import psychicTexture from '../../assets/images/psychicTexture.png'
-import fightingTexture from '../../assets/images/fightingTexture.png'
-import colorlessTexture from '../../assets/images/colorlessTexture.png'
+import { getImageSrcFromCard } from '../../utils/cardUtils'
+import { getPokemonCardTextureByType } from '../../utils/textureUtils'
+import { useShuffleAnimations } from '../../context/ShuffleContext'
+
 import styles from './PokemonCard.module.css'
 
 const noop = () => {};
@@ -153,32 +148,4 @@ export const PokemonCard = ({
       </div>
     </motion.div>
   )
-}
-
-const getPokemonCardTextureByType = (pokemonType) => {
-  let type = pokemonType;
-  let texture;
-
-  if (type === "grass" || type === "bug" || type === "poison") {
-    texture = grassTexture;
-  }
-  if (type === "fire") {
-    texture = fireTexture;
-  }
-  if (type === "water" || type === "ice") {
-    texture = waterTexture;
-  }
-  if (type === "electric") {
-    texture = lightningTexture;
-  }
-  if (type === "psychic" || type === "ghost" || type === "fairy") {
-    texture = psychicTexture;
-  }
-  if (type === "fighting" || type === "ground" || type === "rock") {
-    texture = fightingTexture;
-  }
-  if (type === "normal" || type === "flying" || type === "dragon") {
-    texture = colorlessTexture;
-  }
-  return (texture)
 }

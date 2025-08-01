@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { useGameLogic } from '../context/GameContext'
-import { generateJostleOffset } from '../utils/jostleUtils';
+import { generateJostleOffset } from '../utils/jostleUtils'
 import { wait } from '../utils/cardUtils'
 
 export function useShuffleAnimationsInternal() {
@@ -28,9 +28,7 @@ export function useShuffleAnimationsInternal() {
   const [tapMode, setTapMode] = useState(false);
   const [flipped, setFlipped] = useState(false);
 
-  const jostleRef = useRef({});
   const cardRefs = useRef({});
-  const getJostleState = () => jostleRef.current;
   let lastClickTime = 0;
 
   const maxJostles = 10;
@@ -59,14 +57,12 @@ export function useShuffleAnimationsInternal() {
     setShuffleToCenter(true);
     await wait(900);
     setTapMode(true);
+    setShuffleToCenter(false);
   };
 
   const endShuffle = async () => {
     setReturningToGrid(true);
-    await wait(700);
-
-    setShuffleToCenter(false);
-    await wait(750);
+    await wait(500);
 
     setHideOriginal(false);
     setReturningToGrid(false);
@@ -80,15 +76,15 @@ export function useShuffleAnimationsInternal() {
   };
 
   const handleShuffleClick = (cardId) => {
-    if (!tapMode) return;
+    if (!tapMode) return
 
     const throttleMs = 100;
 
     const now = Date.now();
-    if (now - lastClickTime < throttleMs) return;
+    if (now - lastClickTime < throttleMs) {
+      return
+    }
     lastClickTime = now;
-
-    jostleRef.current[cardId] = generateJostleOffset();
 
     setJostleBarCounter(prev => {
       const next = prev + 1;
@@ -96,7 +92,7 @@ export function useShuffleAnimationsInternal() {
         setTapMode(false);
         endShuffle();
       }
-      return next;
+      return next
     });
   };
 
@@ -110,7 +106,6 @@ export function useShuffleAnimationsInternal() {
     jostleBarCounter,
     maxJostles,
     tapMode,
-    getJostleState,
     handleCardClick,
     handleShuffleClick,
   }

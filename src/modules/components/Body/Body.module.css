@@ -90,7 +90,7 @@
   justify-content: center;
   width: 90dvw;
   position: absolute;
-  top: 80%;
+  top: 90%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -118,7 +118,7 @@
 .tapHeaderWrapper {
   width: 90dvw;
   position: absolute;
-  top: 20%;
+  top: 10%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
