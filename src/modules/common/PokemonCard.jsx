@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, memo } from 'react'
 import { motion } from 'framer-motion'
 import Tilt from 'react-parallax-tilt'
 import Card from '@mui/material/Card'
@@ -15,7 +15,7 @@ import styles from './PokemonCard.module.css'
 
 const noop = () => {};
 
-export const PokemonCard = ({
+export const PokemonCard = memo(({
   handleClick = noop,
   name = 'Name Not Found',
   type = 'Type Not Found',
@@ -101,7 +101,7 @@ export const PokemonCard = ({
         animate={flipped ? "faceDown" : "faceUp"}
         variants={flipVariants}
         transition={{ duration: 0.3 }}
-        style={{ perspective: 1000 }}
+        style={{ perspective: 800, willChange: 'transform' }}
       >
       <Tilt
         className={styles.cardFront}
@@ -206,4 +206,4 @@ export const PokemonCard = ({
       </div>
     </motion.div>
   )
-}
+})
