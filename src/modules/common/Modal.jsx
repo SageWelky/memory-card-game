@@ -84,17 +84,19 @@ export const Modal = ({
         <CustomCloseButton onClick={() => setIsVisible(false)}/>
         : <CustomOpenButton onClick={() => setIsVisible(true)} />
       }
-
-        {isVisible && createPortal(
-          <ModalBox
-            onClose={closeOp}
-            CustomCloseButton={CustomCloseButton}
-          >
-            {children}
-          </ModalBox>,
-          document.body
-        )}
-
+      {createPortal(
+        <AnimatePresence>
+          {isVisible &&
+            <ModalBox
+              onClose={closeOp}
+              CustomCloseButton={CustomCloseButton}
+            >
+              {children}
+            </ModalBox>
+          }
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   )
 }

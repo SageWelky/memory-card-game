@@ -6,7 +6,7 @@
   max-width: 100%;
   position: relative;
   transform-style: preserve-3d;
-  border-radius: 1dvw;
+  border-radius: 0.75dvw;
 }
 
 .staticGradient {
@@ -17,14 +17,32 @@
   left: 0;
   height: 100%;
   width: 100%;
-  border-radius: 1dvw;
-  background: linear-gradient(135deg, rgba(255,255,255,0.0), rgba(255,255,255,0.2) 15%), url('../../assets/images/paperNormal.jpg');
+  border-radius: 0.75dvw;
+  background: linear-gradient(135deg, rgba(255,255,255,0.0), rgba(255,255,255,0.2) 15%), url('../../assets/images/paper1Normal.jpg');
   mix-blend-mode: soft-light;
-  mask-image: url('../../assets/images/paperNormal.jpg');
+  mask-image: url('../../assets/images/paper1Normal.jpg');
   mask-repeat: no-repeat;
   mask-size: cover;
   mask-position: center;
-  filter: grayscale(100%) brightness(90%) contrast(4);
+  filter: grayscale(100%) brightness(80%) contrast(2.4);
+}
+
+.staticGradientBack {
+  pointer-events: none;
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 0.75dvw;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(200,200,200,0.1) 50%), url('../../assets/images/paper6Normal.jpg');
+  mix-blend-mode: soft-light;
+  mask-image: url('../../assets/images/paper6Normal.jpg');
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+  filter: grayscale(100%) brightness(89%) contrast(20);
 }
 
 .cardFront, .cardBack {
@@ -45,4 +63,6 @@
 .cardBack {
   transform: rotateY(180deg);
   box-shadow: 10px 10px 15px 1px rgba(0,0,0,0.4);
+  height: 99%;
+  border-radius: 0.75dvw;
 }

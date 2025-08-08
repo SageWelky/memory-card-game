@@ -38,14 +38,14 @@ export const PokemonCard = ({
     animationFrame.current = requestAnimationFrame(() => {
       const offsetX = (tiltAngleY * 0.7) - 10;
       const offsetY = (tiltAngleX * 0.7) + 10;
-      gradientRef.current.style.backgroundPosition = `${offsetX/50}% ${offsetY/50}%`;
+      gradientRef.current.style.backgroundPosition = `${offsetX/66}% ${offsetY/50}%`;
       const blur = 15;
       const spread = 1;
 
       setShadowStyle({
         boxShadow: `${-offsetX}px ${offsetY}px ${blur}px ${spread}px rgba(0,0,0,0.4)`,
         transition: 'box-shadow 0.15s ease',
-        borderRadius: '1dvw',
+        borderRadius: '0.75dvw',
         overflow: 'hidden',
         zIndex: '12',
       });
@@ -112,7 +112,7 @@ export const PokemonCard = ({
         scale={1.05}
         glareEnable={true}
         glareMaxOpacity={0.6}
-        glarePosition="right"
+        glarePosition="all"
         onMove={handleMove}
         style={shadowStyle}
       >
@@ -129,7 +129,7 @@ export const PokemonCard = ({
             flexDirection: 'column',
             justifyContent: 'space-between',
             paddingBottom: '0.5dvw',
-            borderRadius: '0px',
+            borderRadius: '0.75px',
           }}
         >
           <CardHeader
@@ -138,7 +138,7 @@ export const PokemonCard = ({
             subheader={type}
             subheaderTypographyProps={{ variant: 'secondary', fontSize: '0.8dvw' }}
             sx={{
-              background: 'rgba(255, 255, 255, 0.4)',
+              background: 'rgba(192, 192, 192, 0.85)',
               padding: '0.4dvw',
               '.MuiCardHeader-content': {
                 overflow: 'hidden',
@@ -166,7 +166,6 @@ export const PokemonCard = ({
               width: '1.6dvw',
               height: '1.6dvw',
               textAlign: 'center',
-              fontWeight: 'bold',
               borderRadius: '50%',
               boxShadow: 'inset 1px 1px 5px 3px white',
                 padding: 0,
@@ -187,7 +186,6 @@ export const PokemonCard = ({
       </Tilt>
       <div className={styles.cardBack}>
         <Card
-          elevation={23}
           sx={{
             boxSizing: 'border-box',
             backgroundImage:`url(${pokemonCardBack})`,
@@ -198,11 +196,12 @@ export const PokemonCard = ({
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            paddingBottom: '0.5dvw',
+            paddingBottom: '0',
+            overflow: 'hidden',
           }}
         >
         </Card>
-        <div className={styles.staticGradient}>
+        <div className={styles.staticGradientBack}>
         </div>
       </div>
     </motion.div>

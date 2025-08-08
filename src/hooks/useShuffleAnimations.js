@@ -45,7 +45,7 @@ export function useShuffleAnimationsInternal() {
     }
 
     setAnimating(true);
-    setFlipped(true);
+    await setFlipped(true);
     await wait(300);
 
     const newClickedCardIds = new Set(clickedCardIds);
@@ -73,7 +73,7 @@ export function useShuffleAnimationsInternal() {
     await wait(300);
 
     setGrabCoordinates(false);
-    setFlipped(false);
+    await setFlipped(false);
     await wait(400);
     setAnimating(false);
     setJostleBarCounter(0);
