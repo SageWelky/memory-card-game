@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
+import Tilt from 'react-parallax-tilt'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
@@ -10,7 +11,6 @@ import missingNo from '../../assets/images/missingNo.webp'
 import { getImageSrcFromCard } from '../../utils/cardUtils'
 import { getPokemonCardTextureByType } from '../../utils/textureUtils'
 import { useShuffleAnimations } from '../../context/ShuffleContext'
-
 import styles from './PokemonCard.module.css'
 
 const noop = () => {};
@@ -23,9 +23,42 @@ export const PokemonCard = ({
   defaultImage = missingNo,
   pokemonClassName,
 }) => {
+  const [shadowStyle, setShadowStyle] = useState({});
   const [imgSrc, setImgSrc] = useState(null);
   const { flipped } = useShuffleAnimations();
   const texture = getPokemonCardTextureByType(type);
+
+  const animationFrame = useRef(null);
+
+  // Throttled handler for tilt move.
+  const handleMove = useCallback(({ tiltAngleX, tiltAngleY }) => {
+    if (animationFrame.current) return;
+
+    animationFrame.current = requestAnimationFrame(() => {
+      const offsetX = (tiltAngleY * 0.7) - 10;
+      const offsetY = (tiltAngleX * 0.7) + 10;
+      const blur = 15;
+      const spread = 1;
+
+      setShadowStyle({
+        boxShadow: `${-offsetX}px ${offsetY}px ${blur}px ${spread}px rgba(0,0,0,0.4)`,
+        transition: 'box-shadow 0.15s ease',
+        borderRadius: '1dvw',
+        overflow: 'hidden',
+      });
+
+      animationFrame.current = null;
+    });
+  }, []);
+
+  // Cleanup animation frame on unmount.
+  useEffect(() => {
+    return () => {
+      if (animationFrame.current) {
+        cancelAnimationFrame(animationFrame.current);
+      }
+    };
+  }, []);
 
   const spring = {
     type: "spring",
@@ -38,6 +71,7 @@ export const PokemonCard = ({
     faceDown: { rotateY: 180 },
   };
 
+  // Handles image format and cleanup.
   useEffect(() => {
     if (!defaultImage) return;
 
@@ -57,16 +91,28 @@ export const PokemonCard = ({
 
   return (
     <motion.div
-      className={styles.pokemonCard}
-      onClick={handleClick}
-      initial="faceDown"
-      layout={false}
-      animate={flipped ? "faceDown" : "faceUp"}
-      variants={flipVariants}
-      transition={{ duration: 0.3 }}
-      style={{ perspective: 1000 }}
-    >
-      <div className={styles.cardFront}>
+        className={styles.pokemonCard}
+        onClick={handleClick}
+        initial="faceDown"
+        layout={false}
+        animate={flipped ? "faceDown" : "faceUp"}
+        variants={flipVariants}
+        transition={{ duration: 0.3 }}
+        style={{ perspective: 1000 }}
+      >
+      <Tilt
+        className={styles.cardFront}
+        tiltEnable={!flipped}
+        tiltMaxAngleX={10}
+        tiltMaxAngleY={10}
+        perspective={800}
+        scale={1.05}
+        glareEnable={true}
+        glareMaxOpacity={0.8}
+        glarePosition="right"
+        onMove={handleMove}
+        style={shadowStyle}
+      >
         <Card
           elevation={23}
           sx={{
@@ -120,7 +166,7 @@ export const PokemonCard = ({
               fontWeight: 'bold',
               borderRadius: '50%',
               boxShadow: 'inset 1px 1px 5px 3px white',
-               padding: 0,
+                padding: 0,
               '&:last-child': {
                 paddingBottom: 0,
               },
@@ -133,7 +179,7 @@ export const PokemonCard = ({
             </Typography>
           </CardContent>
         </Card>
-      </div>
+      </Tilt>
       <div className={styles.cardBack}>
         <Card
           elevation={23}
