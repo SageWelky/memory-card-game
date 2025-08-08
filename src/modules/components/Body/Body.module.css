@@ -28,7 +28,7 @@
   display: flex;
   justify-content: center;
   font-size: 5dvw;
-  font-weight: 800;
+  font-weight: 100;
   color: #ffcb05;
   text-shadow: #3c5aa6 15px 15px 5px;
 }
@@ -36,39 +36,12 @@
 .startButton {
   display: flex;
   justify-content: center;
+  align-content: center;
 }
 
-.gameOverBackdrop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-}
-
-.gameOverModal {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5dvw;
-  background-color: rgb(241, 242, 243);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  height: 65dvh;
-  width: 80dvw;
-  overflow-y: auto;
-  position: relative;
-}
-
-.modalMessage {
+.gameOverMessage {
   font-size: calc(16px + 2dvw);
+  color: #ffcb05;
 }
 
 .matContainer {
@@ -126,7 +99,7 @@
 .tapHeader {
   color: #ee1515;
   font-size: 5dvw;
-  font-weight: 800;
+  font-weight: 400;
   text-align: center;
   transform-origin: center;
 }

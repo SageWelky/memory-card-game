@@ -6,7 +6,8 @@ import { cardManager } from '../services/cardManagerSingleton'
 
 export function useDrawCard({ discardPileIds }) {
 
-  const drawNewCards = async (amount) => {
+  const drawNewCards = async (amount, clickedCardIds = []) => {
+
     const totalPossibleCards = 151;
     const discardSize = discardPileIds.size;
 
@@ -23,6 +24,13 @@ export function useDrawCard({ discardPileIds }) {
     }
 
     const drawnCards = [];
+
+    if (clickedCardIds.length > 0) {
+      const clickedCardId = getRandomIdFromList(clickedCardIds);
+      const clickedPokemonId = cardManager.getPokemonIdFromCardId(clickedCardId)
+      const clickedCard = await cardManager.getCardById(clickedPokemonId);
+      drawnCards.push(clickedCard);
+    }
 
     const unseenIds = ALL_IDS.filter(id => !discardPileIds.has(id));
     if (unseenIds.length === 0) {

@@ -4,6 +4,7 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
 import pokemonCardBack from '../../assets/images/pokemonCardBack.jpg'
 import missingNo from '../../assets/images/missingNo.webp'
 import { getImageSrcFromCard } from '../../utils/cardUtils'
@@ -83,12 +84,12 @@ export const PokemonCard = ({
           }}
         >
           <CardHeader
-            title={name}
-            titleTypographyProps={{ fontSize: '1.25dvw' }}
+            title={name.charAt(0).toUpperCase() + name.slice(1)}
+            titleTypographyProps={{ variant: 'secondary', fontSize: '1.25dvw' }}
             subheader={type}
-            subheaderTypographyProps={{ fontSize: '0.8dvw' }}
+            subheaderTypographyProps={{ variant: 'secondary', fontSize: '0.8dvw' }}
             sx={{
-              background: 'rgba(255, 255, 255, 0.7)',
+              background: 'rgba(255, 255, 255, 0.4)',
               padding: '0.4dvw',
               '.MuiCardHeader-content': {
                 overflow: 'hidden',
@@ -113,8 +114,8 @@ export const PokemonCard = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              width: '1.3dvw',
-              height: '1.3dvw',
+              width: '1.6dvw',
+              height: '1.6dvw',
               textAlign: 'center',
               fontWeight: 'bold',
               borderRadius: '50%',
@@ -125,7 +126,11 @@ export const PokemonCard = ({
               },
             }}
           >
-            {pokemonId}
+            <Typography
+              variant="primary"
+            >
+              {pokemonId}
+            </Typography>
           </CardContent>
         </Card>
       </div>

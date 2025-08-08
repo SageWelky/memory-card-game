@@ -7,8 +7,8 @@ export function usePokemonCardsInternal() {
   const { currentHand, replaceHand, shuffleHand } = useCurrentHand();
   const { drawNewCards: _drawNewCards } = useDrawCard({ discardPileIds });
 
-  const drawNewHand = async (amount) => {
-    const newHand = await _drawNewCards(amount);
+  const drawNewHand = async (amount, clickedCardIds = []) => {
+    const newHand = await _drawNewCards(amount, [...clickedCardIds]);
 
     const newToDiscard = currentHand.filter(
       card => !isInDiscardPile(card.pokemonId)

@@ -6,6 +6,7 @@ export function useGameLogicInternal() {
     currentHand,
     discardHand,
     drawNewHand,
+    shuffleHand,
     clearDiscardPile
   } = usePokemonCardsInternal();
 
@@ -86,6 +87,7 @@ export function useGameLogicInternal() {
     gameOver,
     clickedCardIds,
     drawNewHand,
+    shuffleHand,
     startGame,
     endGame,
     resetGame,

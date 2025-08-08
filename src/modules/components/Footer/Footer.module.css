@@ -4,25 +4,22 @@
   align-items: center;
 }
 
-.infoBox {
-  display: flex;
-  justify-content: end;
-  align-items: start;
-  border: 1px solid #3c5aa6;
-  width: 40dvw;
-  height: 40dvw;
-  background-color: #2a75bb;
-  border-radius: 10px;
-  z-index: 1;
-  position: absolute;
-  top: calc(50% - 20dvw);
-  left: calc(50% - 20dvw);
-}
-
 .infoIcon {
   color: #ffcb05;
   background-color: rgb(60, 90, 166);
   border-radius: 50%;
+}
+
+.instructions {
+  width: 55dvw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1.5rem;
+  color: #ffcb05;
+  font-family: serif;
+  font-weight: 500;
 }
 
 .credits {

@@ -12,6 +12,7 @@ export function useShuffleAnimationsInternal() {
     gameOver,
     clickedCardIds,
     drawNewHand,
+    shuffleHand,
     startGame,
     endGame,
     resetGame,
@@ -47,9 +48,12 @@ export function useShuffleAnimationsInternal() {
     setFlipped(true);
     await wait(300);
 
-    setClickedCardIds(prev => new Set(prev).add(cardId));
+    const newClickedCardIds = new Set(clickedCardIds);
+    newClickedCardIds.add(cardId);
+    setClickedCardIds(newClickedCardIds);
     incrementScore();
-    await drawNewHand(12);
+    await drawNewHand(12, newClickedCardIds);
+    shuffleHand();
     setGrabCoordinates(true);
     await wait(200);
 

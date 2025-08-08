@@ -1,5 +1,6 @@
 export class CardManager {
   constructor() {
+    this.cardIdToPokemonId = new Map();
     this.dbName = 'PokemonCache';
     this.storeName = 'cards';
     this.dbPromise = this.openDB().catch(err => {
@@ -23,7 +24,15 @@ export class CardManager {
       }
     }
 
+    if (drawnPokemonCard?.cardId && drawnPokemonCard?.pokemonId) {
+      this.cardIdToPokemonId.set(drawnPokemonCard.cardId, drawnPokemonCard.pokemonId);
+    }
+
     return drawnPokemonCard
+  }
+
+  getPokemonIdFromCardId(cardId) {
+    return this.cardIdToPokemonId.get(cardId);
   }
 
   async fetchImageBlob(url) {
