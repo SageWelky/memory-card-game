@@ -1,7 +1,7 @@
 .mat {
   min-height: 35dvw;
-  margin-left: 1dvw;
-  margin-right: 1dvw;
+  margin-block-start: 0;
+  margin-block-end: 0;
   padding-top: 7px;
   padding-bottom: 7px;
   display: flex;
@@ -12,12 +12,54 @@
   gap: 27px;
   padding-left: 8dvw;
   padding-right: 8dvw;
+  border-radius: 12px;
+}
+
+.matWrap {
+  margin-left: 1dvw;
+  margin-right: 1dvw;
+  border-radius: 12px;
+  height: fit-content;
+  width: fit-content;
+}
+
+.matBackground {
+  margin-left: 1dvw;
+  margin-right: 1dvw;
+  border-radius: 12px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 8dvw;
+  padding-right: 8dvw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 98dvw;
   background-image: url('../../../assets/images/cardMatImage.jpg');
   background-size: cover;
   background-position: center;
   border-radius: 12px;
   filter: drop-shadow(0 0 0.75rem black);
   box-shadow: rgba(60, 90, 166, 0.5) 10px 10px 5px;
+}
+
+.matStaticGradient {
+  margin-left: 1dvw;
+  margin-right: 1dvw;
+  border-radius: 12px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 8dvw;
+  padding-right: 8dvw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 98dvw;
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.0) 90%);
+  border: 1px solid rgba(235, 218, 175, 1);
+  border-radius: 12px;
 }
 
 .list {

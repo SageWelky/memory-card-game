@@ -29,6 +29,7 @@ export const PokemonCard = ({
   const texture = getPokemonCardTextureByType(type);
 
   const animationFrame = useRef(null);
+  const gradientRef = useRef(null);
 
   // Throttled handler for tilt move.
   const handleMove = useCallback(({ tiltAngleX, tiltAngleY }) => {
@@ -37,6 +38,7 @@ export const PokemonCard = ({
     animationFrame.current = requestAnimationFrame(() => {
       const offsetX = (tiltAngleY * 0.7) - 10;
       const offsetY = (tiltAngleX * 0.7) + 10;
+      gradientRef.current.style.backgroundPosition = `${offsetX/50}% ${offsetY/50}%`;
       const blur = 15;
       const spread = 1;
 
@@ -45,6 +47,7 @@ export const PokemonCard = ({
         transition: 'box-shadow 0.15s ease',
         borderRadius: '1dvw',
         overflow: 'hidden',
+        zIndex: '12',
       });
 
       animationFrame.current = null;
@@ -108,7 +111,7 @@ export const PokemonCard = ({
         perspective={800}
         scale={1.05}
         glareEnable={true}
-        glareMaxOpacity={0.8}
+        glareMaxOpacity={0.6}
         glarePosition="right"
         onMove={handleMove}
         style={shadowStyle}
@@ -147,7 +150,7 @@ export const PokemonCard = ({
             image={imgSrc}
             alt="PokemonImage"
             sx={{
-              width: '65%',
+              width: '95%',
               margin: '0 auto',
               objectFit: 'contain',
             }}
@@ -179,6 +182,8 @@ export const PokemonCard = ({
             </Typography>
           </CardContent>
         </Card>
+        <div ref={gradientRef} className={styles.staticGradient}>
+        </div>
       </Tilt>
       <div className={styles.cardBack}>
         <Card
@@ -195,7 +200,10 @@ export const PokemonCard = ({
             justifyContent: 'space-between',
             paddingBottom: '0.5dvw',
           }}
-        ></Card>
+        >
+        </Card>
+        <div className={styles.staticGradient}>
+        </div>
       </div>
     </motion.div>
   )

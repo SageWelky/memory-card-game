@@ -21,28 +21,34 @@ export const BodyCardMat = () => {
 
   return (
     <div className={styles.matContainer}>
-      <ul className={styles.mat}>
-        {
-          currentHand.map((card) => (
-            <motion.li
-              key={card.cardId}
-              className={styles.list}
-              ref={el => cardRefs.current[card.cardId] = el}
-              initial={false}
-              layout={false}
-              style={{ visibility: hideOriginal ? "hidden" : "visible" }}
-            >
-              <PokemonCard
-                handleClick={() => handleCardClick(card.cardId)}
-                name={card.name}
-                type={card.type}
-                pokemonId={card.pokemonId}
-                defaultImage={card.defaultImage}
-              />
-            </motion.li>
-          ))
-        }
-      </ul>
+      <div className={styles.matWrap}>
+        <div className={styles.matBackground}>
+        </div>
+        <div className={styles.matStaticGradient}>
+        </div>
+        <ul className={styles.mat}>
+          {
+            currentHand.map((card) => (
+              <motion.li
+                key={card.cardId}
+                className={styles.list}
+                ref={el => cardRefs.current[card.cardId] = el}
+                initial={false}
+                layout={false}
+                style={{ visibility: hideOriginal ? "hidden" : "visible" }}
+              >
+                <PokemonCard
+                  handleClick={() => handleCardClick(card.cardId)}
+                  name={card.name}
+                  type={card.type}
+                  pokemonId={card.pokemonId}
+                  defaultImage={card.defaultImage}
+                />
+              </motion.li>
+            ))
+          }
+        </ul>
+      </div>
 
       {(shuffleToCenter || returningToGrid || tapMode) && (
         <ShuffleOverlay currentHand={currentHand}/>

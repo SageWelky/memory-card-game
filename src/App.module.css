@@ -6,4 +6,5 @@
   background-image: url('./assets/images/appBackground.gif');
   background-size: cover;
   background-position: center;
+  z-index: -10;
 }
