@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: 100%;
-  background-image: url('./assets/images/appBackground.gif');
+  background-image: url('assets/images/appBackground.gif');
   background-size: cover;
   background-position: center;
   z-index: -10;

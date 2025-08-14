@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import IconButton from '@mui/material/IconButton'
 import CancelIcon from '@mui/icons-material/Cancel'
-import styles from './Modal.module.css'
+import styles from 'common/Modal.module.css'
 
 const DefaultOpenButton = ({ onClick }) => {
   return(

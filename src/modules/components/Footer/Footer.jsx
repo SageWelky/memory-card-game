@@ -1,6 +1,6 @@
-import { FooterCredits } from './components/FooterCredits'
-import { FooterInfo } from './components/FooterInfo'
-import styles from './Footer.module.css'
+import { FooterCredits } from 'components/Footer/components/FooterCredits'
+import { FooterInfo } from 'components/Footer/components/FooterInfo'
+import styles from 'components/Footer/Footer.module.css'
 
 export const Footer = () => {
 

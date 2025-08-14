@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import Button from '@mui/material/Button'
-import { BodyStartup } from './components/BodyStartup'
-import { BodyCardMat } from './components/BodyCardMat/BodyCardMat'
+import { BodyStartup } from 'components/Body/components/BodyStartup'
+import { BodyCardMat } from 'components/Body/components/BodyCardMat/BodyCardMat'
 import { Modal } from 'common/Modal'
 import { useGameLogic } from 'context/GameContext'
-import styles from './Body.module.css'
+import styles from 'components/Body/Body.module.css'
 
 const GameOverInfo = ({ resetGame }) => {
   return(

@@ -1,6 +1,6 @@
-import { useDiscardPile } from './useDiscardPile'
-import { useCurrentHand } from './useCurrentHand'
-import { useDrawCard } from './useDrawCard'
+import { useDiscardPile } from 'hooks/usePokemonCards/useDiscardPile'
+import { useCurrentHand } from 'hooks/usePokemonCards/useCurrentHand'
+import { useDrawCard } from 'hooks/usePokemonCards/useDrawCard'
 
 export function usePokemonCardsInternal() {
   const { discardPileIds, addToDiscardPile, isInDiscardPile, clearDiscardPile } = useDiscardPile();

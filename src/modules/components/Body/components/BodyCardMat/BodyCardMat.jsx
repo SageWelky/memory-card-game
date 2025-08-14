@@ -1,4 +1,4 @@
-import { ShuffleOverlay } from './ShuffleOverlay'
+import { ShuffleOverlay } from 'components/Body/components/BodyCardMat/ShuffleOverlay'
 import { PokemonCard } from 'common/PokemonCard'
 import { useGameLogic } from 'context/GameContext'
 import { useShuffleAnimations } from 'context/ShuffleContext'

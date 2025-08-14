@@ -11,7 +11,7 @@ import missingNo from 'assets/images/missingNo.webp'
 import { getImageSrcFromCard } from 'utils/cardUtils'
 import { getPokemonCardTextureByType } from 'utils/textureUtils'
 import { useShuffleAnimations } from 'context/ShuffleContext'
-import styles from './PokemonCard.module.css'
+import styles from 'common/PokemonCard.module.css'
 
 const noop = () => {};
 
