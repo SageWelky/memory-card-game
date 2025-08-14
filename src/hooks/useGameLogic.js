@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { usePokemonCardsInternal } from './usePokemonCards'
+import { usePokemonCardsInternal } from 'hooks/usePokemonCards/usePokemonCards'
 
 export function useGameLogicInternal() {
   const {
