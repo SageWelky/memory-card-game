@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import { useShuffleAnimationsInternal } from '../hooks/useShuffleAnimations'
+import { useShuffleAnimationsInternal } from 'src/hooks/useShuffleAnimations/useShuffleAnimations'
 
 const ShuffleContext = createContext(null);
 

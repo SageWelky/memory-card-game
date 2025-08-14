@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Button from '@mui/material/Button'
-import styles from '../Body.module.css'
+import styles from 'components/Body/Body.module.css'
 
 export const BodyStartup = ({ handleClick }) => {
 

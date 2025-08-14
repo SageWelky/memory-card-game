@@ -1,9 +1,9 @@
 import { ShuffleOverlay } from './ShuffleOverlay'
-import { PokemonCard } from '../../../../common/PokemonCard'
-import { useGameLogic } from '../../../../../context/GameContext'
-import { useShuffleAnimations } from '../../../../../context/ShuffleContext'
+import { PokemonCard } from 'common/PokemonCard'
+import { useGameLogic } from 'context/GameContext'
+import { useShuffleAnimations } from 'context/ShuffleContext'
 import { motion } from 'framer-motion'
-import styles from '../../Body.module.css'
+import styles from 'components/Body/Body.module.css'
 
 export const BodyCardMat = () => {
   const {

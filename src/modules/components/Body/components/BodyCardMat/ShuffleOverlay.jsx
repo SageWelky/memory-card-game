@@ -1,9 +1,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { PokemonCard } from '../../../../common/PokemonCard'
-import { useShuffleAnimations } from '../../../../../context/ShuffleContext'
-import { generateJostleOffset } from '../../../../../utils/jostleUtils'
-import styles from '../../Body.module.css'
+import { PokemonCard } from 'common/PokemonCard'
+import { useShuffleAnimations } from 'context/ShuffleContext'
+import { generateJostleOffset } from 'utils/jostleUtils'
+import styles from 'components/Body/Body.module.css'
 
 export const ShuffleOverlay = ({ currentHand }) => {
   const {

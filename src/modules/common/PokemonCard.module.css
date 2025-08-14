@@ -18,9 +18,9 @@
   height: 100%;
   width: 100%;
   border-radius: 0.75dvw;
-  background: linear-gradient(135deg, rgba(255,255,255,0.0), rgba(255,255,255,0.2) 15%), url('../../assets/images/paper1Normal.jpg');
+  background: linear-gradient(135deg, rgba(255,255,255,0.0), rgba(255,255,255,0.2) 15%), url('assets/images/paper1Normal.jpg');
   mix-blend-mode: soft-light;
-  mask-image: url('../../assets/images/paper1Normal.jpg');
+  mask-image: url('assets/images/paper1Normal.jpg');
   mask-repeat: no-repeat;
   mask-size: cover;
   mask-position: center;
@@ -36,9 +36,9 @@
   height: 100%;
   width: 100%;
   border-radius: 0.75dvw;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(200,200,200,0.1) 50%), url('../../assets/images/paper6Normal.jpg');
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(200,200,200,0.1) 50%), url('assets/images/paper6Normal.jpg');
   mix-blend-mode: soft-light;
-  mask-image: url('../../assets/images/paper6Normal.jpg');
+  mask-image: url('assets/images/paper6Normal.jpg');
   mask-repeat: no-repeat;
   mask-size: cover;
   mask-position: center;

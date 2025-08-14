@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
-import { useGameLogic } from '../context/GameContext'
-import { generateJostleOffset } from '../utils/jostleUtils'
-import { wait } from '../utils/cardUtils'
+import { useGameLogic } from 'context/GameContext'
+import { generateJostleOffset } from 'utils/jostleUtils'
+import { wait } from 'utils/cardUtils'
 
 export function useShuffleAnimationsInternal() {
   const {

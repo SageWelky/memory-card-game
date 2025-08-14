@@ -2,8 +2,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import IconButton from '@mui/material/IconButton'
 import InfoIcon from '@mui/icons-material/Info'
 import CancelIcon from '@mui/icons-material/Cancel'
-import { Modal } from '../../../common/Modal'
-import styles from '../Footer.module.css'
+import { Modal } from 'common/Modal'
+import styles from 'components/Footer/Footer.module.css'
 
 const InfoButton = ({onClick}) => {
   return(

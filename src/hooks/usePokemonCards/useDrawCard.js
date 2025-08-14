@@ -1,8 +1,8 @@
 import {
   ALL_IDS,
   getRandomIdFromList,
-} from '../utils/cardUtils'
-import { cardManager } from '../services/cardManagerSingleton'
+} from 'utils/cardUtils'
+import { cardManager } from 'services/cardManagerSingleton'
 
 export function useDrawCard({ discardPileIds }) {
 

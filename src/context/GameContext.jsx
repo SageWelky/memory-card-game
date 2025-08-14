@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import { useGameLogicInternal } from '../hooks/useGameLogic'
+import { useGameLogicInternal } from 'hooks/useGameLogic'
 
 const GameContext = createContext(null);
 

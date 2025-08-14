@@ -1,4 +1,4 @@
-import styles from '../Footer.module.css'
+import styles from 'components/Footer/Footer.module.css'
 
 export const FooterCredits = () => {
 
