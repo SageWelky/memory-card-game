@@ -20,7 +20,7 @@ export const BodyCardMat = () => {
   } = useShuffleAnimations();
 
   return (
-    <div className={styles.matContainer}>
+    <div className={styles.body}>
       <div className={styles.matWrap}>
         <div className={styles.matBackground}>
         </div>

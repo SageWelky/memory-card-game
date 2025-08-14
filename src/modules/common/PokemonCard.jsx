@@ -15,7 +15,7 @@ import styles from 'common/PokemonCard.module.css'
 
 const noop = () => {};
 
-export const PokemonCard = memo(({
+export const PokemonCard = ({
   handleClick = noop,
   name = 'Name Not Found',
   type = 'Type Not Found',
@@ -206,4 +206,4 @@ export const PokemonCard = memo(({
       </div>
     </motion.div>
   )
-})
+}
