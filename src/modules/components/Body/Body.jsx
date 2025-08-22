@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
 import Button from '@mui/material/Button'
-import { BodyStartup } from 'components/Body/components/BodyStartup'
-import { BodyCardMat } from 'components/Body/components/BodyCardMat/BodyCardMat'
 import { Modal } from 'common/Modal'
-import { useGameLogic } from 'context/GameContext'
 import styles from 'components/Body/Body.module.css'
+import { BodyStartup } from 'components/Body/components/BodyStartup'
+import { useGameLogic } from 'context/GameContext'
+import { BodyCardMat } from './components/BodyCardMat/BodyCardMat'
 
 const GameOverInfo = ({ resetGame }) => {
   return(
@@ -28,16 +27,12 @@ const GameOverInfo = ({ resetGame }) => {
 }
 
 export const Body = () => {
-  const { drawNewHand, gameOver, startGame, resetGame, started, loading } = useGameLogic();
+  const { gameOver, startGame, resetGame, started } = useGameLogic();
 
   return (
     <>
       {started ? (
-        loading ? (
-          <div className={styles.loading}>Loading...</div>
-        ) : (
-          <BodyCardMat />
-        )
+        <BodyCardMat />
       ) : (
         <BodyStartup handleClick={() => startGame()}></BodyStartup>
       )}

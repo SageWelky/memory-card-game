@@ -1,5 +1,15 @@
 @import 'modern-normalize';
 
+@font-face {
+  font-family: 'Caprasimo';
+  src: url('assets/fonts/Caprasimo-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Josefin Sans';
+  src: url('assets/fonts/JosefinSans-VariableFont_wght.ttf');
+}
+
 :root {
   --font-primary: 'Caprasimo', serif;
   --font-secondary: 'Josefin Sans', sans-serif;

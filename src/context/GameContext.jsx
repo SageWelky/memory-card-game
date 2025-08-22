@@ -16,7 +16,7 @@ export const GameProvider = ({ children }) => {
 export const useGameLogic = () => {
   const context = useContext(GameContext);
   if (!context) {
-    throw new Error('useGame must be used within a GameProvider');
+    throw new Error('useGameLogic must be used within a GameProvider');
   }
 
   return context

@@ -1,5 +1,5 @@
-import { useGameLogic } from 'context/GameContext'
-import styles from 'components/Header/Header.module.css'
+import styles from 'components/Header/Header.module.css';
+import { useGameLogic } from 'context/GameContext';
 
 export const HeaderScore = () => {
   const { score } = useGameLogic();

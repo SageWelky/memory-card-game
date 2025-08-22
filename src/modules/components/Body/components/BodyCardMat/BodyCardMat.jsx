@@ -1,23 +1,26 @@
-import { ShuffleOverlay } from 'components/Body/components/BodyCardMat/ShuffleOverlay'
 import { PokemonCard } from 'common/PokemonCard'
-import { useGameLogic } from 'context/GameContext'
-import { useShuffleAnimations } from 'context/ShuffleContext'
-import { motion } from 'framer-motion'
 import styles from 'components/Body/Body.module.css'
+import { ShuffleOverlay } from 'components/Body/components/BodyCardMat/ShuffleOverlay/ShuffleOverlay'
+import { useGameLogic } from 'context/GameContext'
+import {
+  useCardRefs,
+  useHandleCardClick,
+  useHideOriginal,
+  useShowShuffleOverlay,
+  useTapMode,
+} from 'context/ShuffleContext'
+import { motion } from 'framer-motion'
 
 export const BodyCardMat = () => {
   const {
-    currentHand,
+    currentHand
   } = useGameLogic();
 
-  const {
-    cardRefs,
-    shuffleToCenter,
-    returningToGrid,
-    hideOriginal,
-    tapMode,
-    handleCardClick,
-  } = useShuffleAnimations();
+  const { cardRefs } = useCardRefs();
+  const { showShuffleOverlay } = useShowShuffleOverlay();
+  const { hideOriginal } = useHideOriginal();
+  const { tapMode } = useTapMode();
+  const { handleCardClick } = useHandleCardClick();
 
   return (
     <div className={styles.body}>
@@ -28,11 +31,17 @@ export const BodyCardMat = () => {
         </div>
         <ul className={styles.mat}>
           {
-            currentHand.map((card) => (
+            (currentHand.map((card) => (
               <motion.li
                 key={card.cardId}
                 className={styles.list}
-                ref={el => cardRefs.current[card.cardId] = el}
+                ref={(el) => {
+                  if (el) {
+                    cardRefs.current[card.cardId] = el;
+                  } else {
+                    delete cardRefs.current[card.cardId];
+                  }
+                }}
                 initial={false}
                 layout={false}
                 style={{ visibility: hideOriginal ? "hidden" : "visible" }}
@@ -43,14 +52,18 @@ export const BodyCardMat = () => {
                   type={card.type}
                   pokemonId={card.pokemonId}
                   defaultImage={card.defaultImage}
+                  currentHand={currentHand}
+                  refId={cardRefs.current[card.cardId]}
+                  cardRefs={cardRefs.current}
+                  cardId={card.cardId}
                 />
               </motion.li>
-            ))
+            )))
           }
         </ul>
       </div>
 
-      {(shuffleToCenter || returningToGrid || tapMode) && (
+      {( showShuffleOverlay ) && (
         <ShuffleOverlay currentHand={currentHand}/>
       )}
     </div>

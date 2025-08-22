@@ -1,10 +1,10 @@
-import grassTexture from 'assets/images/grassTexture.jpg'
+import colorlessTexture from 'assets/images/colorlessTexture.png'
+import fightingTexture from 'assets/images/fightingTexture.png'
 import fireTexture from 'assets/images/fireTexture.jpg'
-import waterTexture from 'assets/images/waterTexture.jpg'
+import grassTexture from 'assets/images/grassTexture.jpg'
 import lightningTexture from 'assets/images/lightningTexture.jpg'
 import psychicTexture from 'assets/images/psychicTexture.png'
-import fightingTexture from 'assets/images/fightingTexture.png'
-import colorlessTexture from 'assets/images/colorlessTexture.png'
+import waterTexture from 'assets/images/waterTexture.jpg'
 
 export const getPokemonCardTextureByType = (pokemonType) => {
   let type = pokemonType;

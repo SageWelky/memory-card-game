@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
-import { createPortal } from 'react-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import IconButton from '@mui/material/IconButton'
 import CancelIcon from '@mui/icons-material/Cancel'
+import IconButton from '@mui/material/IconButton'
 import styles from 'common/Modal.module.css'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 const DefaultOpenButton = ({ onClick }) => {
   return(

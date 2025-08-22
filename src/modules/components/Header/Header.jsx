@@ -1,6 +1,6 @@
-import { HeaderLogo } from 'components/Header/components/HeaderLogo'
-import { HeaderScore } from 'components/Header/components/HeaderScore'
-import styles from 'components/Header/Header.module.css'
+import { HeaderLogo } from 'components/Header/components/HeaderLogo';
+import { HeaderScore } from 'components/Header/components/HeaderScore';
+import styles from 'components/Header/Header.module.css';
 
 export const Header = () => {
 

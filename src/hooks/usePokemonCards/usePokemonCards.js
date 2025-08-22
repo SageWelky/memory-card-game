@@ -1,13 +1,13 @@
-import { useDiscardPile } from 'hooks/usePokemonCards/useDiscardPile'
-import { useCurrentHand } from 'hooks/usePokemonCards/useCurrentHand'
-import { useDrawCard } from 'hooks/usePokemonCards/useDrawCard'
+import { useCurrentHand } from 'hooks/usePokemonCards/useCurrentHand';
+import { useDiscardPile } from 'hooks/usePokemonCards/useDiscardPile';
+import { useDrawCard } from 'hooks/usePokemonCards/useDrawCard';
 
 export function usePokemonCardsInternal() {
   const { discardPileIds, addToDiscardPile, isInDiscardPile, clearDiscardPile } = useDiscardPile();
   const { currentHand, replaceHand, shuffleHand } = useCurrentHand();
   const { drawNewCards: _drawNewCards } = useDrawCard({ discardPileIds });
 
-  const drawNewHand = async (amount, clickedCardIds = []) => {
+  const drawNewHand = async (amount, shouldShuffle = false, clickedCardIds = []) => {
     const newHand = await _drawNewCards(amount, [...clickedCardIds]);
 
     const newToDiscard = currentHand.filter(
@@ -15,7 +15,11 @@ export function usePokemonCardsInternal() {
     );
 
     addToDiscardPile(newToDiscard);
-    replaceHand(newHand);
+    if(shouldShuffle){
+      shuffleHand(newHand);
+    } else {
+      replaceHand(newHand);
+    }
   };
 
   const discardHand = () => {

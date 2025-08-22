@@ -1,9 +1,9 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { GameProvider } from 'context/GameContext'
 import { ShuffleProvider } from 'context/ShuffleContext'
-import { Header } from 'modules/components/Header/Header'
 import { Body } from 'modules/components/Body/Body'
 import { Footer } from 'modules/components/Footer/Footer'
+import { Header } from 'modules/components/Header/Header'
 import styles from 'src/App.module.css'
 import 'src/global.css'
 

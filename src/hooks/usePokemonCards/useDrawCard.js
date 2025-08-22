@@ -1,8 +1,8 @@
+import { cardManager } from 'services/cardManagerSingleton';
 import {
   ALL_IDS,
   getRandomIdFromList,
-} from 'utils/cardUtils'
-import { cardManager } from 'services/cardManagerSingleton'
+} from 'utils/cardUtils';
 
 export function useDrawCard({ discardPileIds }) {
 
@@ -52,7 +52,6 @@ export function useDrawCard({ discardPileIds }) {
       const card = await cardManager.getCardById(newId);
       drawnCards.push(card);
     }
-
     return drawnCards
   }
 

@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { usePokemonCardsInternal } from 'hooks/usePokemonCards/usePokemonCards'
+import { usePokemonCardsInternal } from 'hooks/usePokemonCards/usePokemonCards';
+import { useState } from 'react';
 
 export function useGameLogicInternal() {
   const {
@@ -11,7 +11,6 @@ export function useGameLogicInternal() {
   } = usePokemonCardsInternal();
 
   const [started, setStarted] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [clickedCardIds, setClickedCardIds] = useState(new Set());
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -34,54 +33,12 @@ export function useGameLogicInternal() {
   };
 
   const startGame = () => {
+    drawNewHand(12);
     setStarted(true);
-
-    setLoading(true);
-
-    // %%%%%%%%%%%%
-    //loadData();
-    // %%%%%%%%%%%%
-
-    // %%%%%%%%%%%%
-    //const idRef = useRef(0);
-    // %%%%%%%%%%%%
-
-    // %%%%%%%%%%%%
-    /*loadData = async () => {
-
-        try {
-          idRef.current++;
-          const currRequestId = idRef.current;
-
-          const myData = await loadSomeData(id);
-
-          if (currRequestId == idRef.current) {
-            setData(myData);
-            drawNewHand(12);
-          }
-        }
-        catch (e) {
-          setError(e);
-        }
-        finally {
-          //always disable spinner so it doesn't get stuck loading
-          setLoading(false);
-        }
-    }*/
-    // %%%%%%%%%%%%
-
-    const initializeHand = setTimeout(async () => {
-      drawNewHand(12);
-      setLoading(false);
-    }, 400);
-    return () => {
-      clearTimeout(initializeHand);
-    }
   }
 
   return {
     started,
-    loading,
     currentHand,
     score,
     gameOver,

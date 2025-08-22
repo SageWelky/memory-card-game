@@ -1,5 +1,5 @@
-import pokemonLogo from 'assets/images/pokemonLogo.png'
-import styles from 'components/Header/Header.module.css'
+import pokemonLogo from 'assets/images/pokemonLogo.png';
+import styles from 'components/Header/Header.module.css';
 
 export const HeaderLogo = () => {
 

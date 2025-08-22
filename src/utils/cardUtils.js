@@ -20,8 +20,6 @@ export function isInList(list, id) {
   return list.some(item => item.pokemonId === id)
 }
 
-export const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 export function getImageSrcFromCard(card, variant = "default") {
   const blob = variant === "shiny" ? card.shinyImage : card.defaultImage;
   return blob instanceof Blob ? URL.createObjectURL(blob) : blob

@@ -1,39 +1,45 @@
-import { useState, useEffect, useRef, useCallback, memo } from 'react'
-import { motion } from 'framer-motion'
-import Tilt from 'react-parallax-tilt'
 import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
-import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import pokemonCardBack from 'assets/images/pokemonCardBack.jpg'
 import missingNo from 'assets/images/missingNo.webp'
-import { getImageSrcFromCard } from 'utils/cardUtils'
-import { getPokemonCardTextureByType } from 'utils/textureUtils'
-import { useShuffleAnimations } from 'context/ShuffleContext'
+import pokemonCardBack from 'assets/images/pokemonCardBack.jpg'
 import styles from 'common/PokemonCard.module.css'
+import { useFlipped } from 'context/ShuffleContext'
+import { motion } from 'framer-motion'
+import { memo, useCallback, useEffect, useRef, useState } from 'react'
+import Tilt from 'react-parallax-tilt'
+import { getPokemonCardTextureByType } from 'utils/textureUtils'
 
 const noop = () => {};
 
-export const PokemonCard = ({
+export const PokemonCard = memo(({
   handleClick = noop,
   name = 'Name Not Found',
   type = 'Type Not Found',
   pokemonId = 'N/A',
   defaultImage = missingNo,
+  refId = null,
   pokemonClassName,
 }) => {
-  const [shadowStyle, setShadowStyle] = useState({});
+  const [shadowStyle, setShadowStyle] = useState({
+    boxShadow: `3px 3px 15px 1px rgba(0,0,0,0.4)`,
+    borderRadius: '0.75dvw',
+    overflow: 'hidden',
+    zIndex: 12,
+  });
   const [imgSrc, setImgSrc] = useState(null);
-  const { flipped } = useShuffleAnimations();
+  const { flipped } = useFlipped();
   const texture = getPokemonCardTextureByType(type);
 
   const animationFrame = useRef(null);
   const gradientRef = useRef(null);
 
   // Throttled handler for tilt move.
-  const handleMove = useCallback(({ tiltAngleX, tiltAngleY }) => {
+  const handleMove = useCallback(({ tiltAngleX = 0, tiltAngleY = 0 }) => {
     if (animationFrame.current) return;
+    if (!(tiltAngleX || tiltAngleY)) return;
 
     animationFrame.current = requestAnimationFrame(() => {
       const offsetX = (tiltAngleY * 0.7) - 10;
@@ -42,8 +48,9 @@ export const PokemonCard = ({
       const blur = 15;
       const spread = 1;
 
+
       setShadowStyle({
-        boxShadow: `${-offsetX}px ${offsetY}px ${blur}px ${spread}px rgba(0,0,0,0.4)`,
+        boxShadow: `${-offsetX * 0.5}px ${offsetY * 0.5}px ${blur}px ${spread}px rgba(0,0,0,0.4)`,
         transition: 'box-shadow 0.15s ease',
         borderRadius: '0.75dvw',
         overflow: 'hidden',
@@ -74,7 +81,7 @@ export const PokemonCard = ({
     faceDown: { rotateY: 180 },
   };
 
-  // Handles image format and cleanup.
+  // Handles image format and related cleanup.
   useEffect(() => {
     if (!defaultImage) return;
 
@@ -94,15 +101,23 @@ export const PokemonCard = ({
 
   return (
     <motion.div
-        className={styles.pokemonCard}
-        onClick={handleClick}
-        initial="faceDown"
-        layout={false}
-        animate={flipped ? "faceDown" : "faceUp"}
-        variants={flipVariants}
-        transition={{ duration: 0.3 }}
-        style={{ perspective: 800, willChange: 'transform' }}
-      >
+      className={styles.pokemonCard}
+      onClick={handleClick}
+      initial="faceDown"
+      layout={false}
+      animate={flipped ? "faceDown" : "faceUp"}
+      variants={flipVariants}
+      transition={{ duration: 0.4 }}
+      onAnimationComplete={
+        () => {
+          if (refId?.onFlipComplete) {
+            refId.onFlipComplete();
+            refId.onFlipComplete = null;
+          }
+        }
+      }
+      style={{ perspective: 800, willChange: 'transform' }}
+    >
       <Tilt
         className={styles.cardFront}
         tiltEnable={!flipped}
@@ -117,7 +132,6 @@ export const PokemonCard = ({
         style={shadowStyle}
       >
         <Card
-          elevation={23}
           sx={{
             boxSizing: 'border-box',
             backgroundImage:`url(${texture})`,
@@ -168,7 +182,7 @@ export const PokemonCard = ({
               textAlign: 'center',
               borderRadius: '50%',
               boxShadow: 'inset 1px 1px 5px 3px white',
-                padding: 0,
+              padding: 0,
               '&:last-child': {
                 paddingBottom: 0,
               },
@@ -206,4 +220,4 @@ export const PokemonCard = ({
       </div>
     </motion.div>
   )
-}
+})
