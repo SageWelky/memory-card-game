@@ -47,10 +47,7 @@ export const ShuffleOverlay = ({ currentHand }) => {
             tapMode={tapMode}
           >
             <PokemonCard
-              name={card.name}
-              type={card.type}
-              pokemonId={card.pokemonId}
-              defaultImage={card.defaultImage}
+              mode='cardback'
             />
           </ShuffleCardWrapper>
         )

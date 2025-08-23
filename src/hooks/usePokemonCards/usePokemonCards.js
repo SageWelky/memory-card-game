@@ -5,9 +5,9 @@ import { useDrawCard } from 'hooks/usePokemonCards/useDrawCard';
 export function usePokemonCardsInternal() {
   const { discardPileIds, addToDiscardPile, isInDiscardPile, clearDiscardPile } = useDiscardPile();
   const { currentHand, replaceHand, shuffleHand } = useCurrentHand();
-  const { drawNewCards: _drawNewCards } = useDrawCard({ discardPileIds });
+  const { drawNewCards: _drawNewCards, firstLoadDrawNewCards: _firstLoadDrawNewCards } = useDrawCard({ discardPileIds });
 
-  const drawNewHand = async (amount, shouldShuffle = false, clickedCardIds = []) => {
+  const drawNewHand = async (amount = 12, shouldShuffle = false, clickedCardIds = []) => {
     const newHand = await _drawNewCards(amount, [...clickedCardIds]);
 
     const newToDiscard = currentHand.filter(
@@ -20,6 +20,16 @@ export function usePokemonCardsInternal() {
     } else {
       replaceHand(newHand);
     }
+  };
+
+  const firstLoadDrawNewHand = async (amount = 12, clickedCardIds = []) => {
+    const newHand = await _firstLoadDrawNewCards(amount, [...clickedCardIds]);
+
+    const newToDiscard = currentHand.filter(
+      card => !isInDiscardPile(card.pokemonId)
+    );
+
+    shuffleHand(newHand);
   };
 
   const discardHand = () => {
@@ -36,6 +46,7 @@ export function usePokemonCardsInternal() {
     discardPileIds,
     clearDiscardPile,
     drawNewHand,
+    firstLoadDrawNewHand,
     shuffleHand,
     discardHand
   }

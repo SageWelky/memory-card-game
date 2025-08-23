@@ -6,6 +6,7 @@ export function useGameLogicInternal() {
     currentHand,
     discardHand,
     drawNewHand,
+    firstLoadDrawNewHand,
     shuffleHand,
     clearDiscardPile
   } = usePokemonCardsInternal();
@@ -33,7 +34,7 @@ export function useGameLogicInternal() {
   };
 
   const startGame = () => {
-    drawNewHand(12);
+    firstLoadDrawNewHand(12);
     setStarted(true);
   }
 
@@ -44,6 +45,7 @@ export function useGameLogicInternal() {
     gameOver,
     clickedCardIds,
     drawNewHand,
+    firstLoadDrawNewHand,
     shuffleHand,
     startGame,
     endGame,

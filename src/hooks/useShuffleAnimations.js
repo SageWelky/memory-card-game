@@ -8,11 +8,13 @@ export function useShuffleAnimationsInternal() {
   const {
     started,
     endGame,
+    score,
     incrementScore,
     clickedCardIds,
     setClickedCardIds,
     currentHand,
     drawNewHand,
+    firstLoadDrawNewHand,
     shuffleHand,
   } = useGameLogic();
 
@@ -118,14 +120,23 @@ export function useShuffleAnimationsInternal() {
     }
     setAnimating(true);
     await playFlipAnimation();
+    // This handles needing the newly clicked card state being
+    //  stale at this point in the lifecycle.
     const newClickedCardIds = new Set(clickedCardIds);
     newClickedCardIds.add(cardId);
     setClickedCardIds(newClickedCardIds);
+    // Score will not change state until after exiting handleCardClick.
     incrementScore();
-    await drawNewHand(12, true, newClickedCardIds);
+    // Third clicked card will show a score of 2 here.
+    if(score > 1) {
+      await drawNewHand(12, true, newClickedCardIds);
+    } else {
+      await firstLoadDrawNewHand(12, newClickedCardIds);
+    }
+
     await animateShuffleStart();
     setTapMode(true);
-  }, [animating, currentHand, clickedCardIds]);
+  }, [animating, currentHand, incrementScore, clickedCardIds]);
 
   const handleShuffleClick = useCallback((cardId, centerX, centerY) => {
     if (!tapMode) {

@@ -8,7 +8,7 @@ import pokemonCardBack from 'assets/images/pokemonCardBack.jpg'
 import styles from 'common/PokemonCard.module.css'
 import { useFlipped } from 'context/ShuffleContext'
 import { motion } from 'framer-motion'
-import { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import { getPokemonCardTextureByType } from 'utils/textureUtils'
 
@@ -21,20 +21,18 @@ export const PokemonCard = memo(({
   pokemonId = 'N/A',
   defaultImage = missingNo,
   refId = null,
+  mode = 'full',
   pokemonClassName,
 }) => {
+  const { flipped } = useFlipped();
+  const animationFrame = useRef(null);
+  const gradientRef = useRef(null);
   const [shadowStyle, setShadowStyle] = useState({
     boxShadow: `3px 3px 15px 1px rgba(0,0,0,0.4)`,
     borderRadius: '0.75dvw',
     overflow: 'hidden',
     zIndex: 12,
   });
-  const [imgSrc, setImgSrc] = useState(null);
-  const { flipped } = useFlipped();
-  const texture = getPokemonCardTextureByType(type);
-
-  const animationFrame = useRef(null);
-  const gradientRef = useRef(null);
 
   // Throttled handler for tilt move.
   const handleMove = useCallback(({ tiltAngleX = 0, tiltAngleY = 0 }) => {
@@ -48,9 +46,8 @@ export const PokemonCard = memo(({
       const blur = 15;
       const spread = 1;
 
-
       setShadowStyle({
-        boxShadow: `${-offsetX * 0.5}px ${offsetY * 0.5}px ${blur}px ${spread}px rgba(0,0,0,0.4)`,
+        boxShadow: `${-offsetX * 0.6}px ${offsetY * 0.6}px ${blur}px ${spread}px rgba(0,0,0,0.4)`,
         transition: 'box-shadow 0.15s ease',
         borderRadius: '0.75dvw',
         overflow: 'hidden',
@@ -60,6 +57,40 @@ export const PokemonCard = memo(({
       animationFrame.current = null;
     });
   }, []);
+
+  if (mode === 'cardback') {
+    return (
+      <motion.div
+        className={styles.pokemonCard}
+        initial="faceDown"
+        layout={false}
+        animate={"faceDown"}
+        variants={{ faceDown: { rotateY: 180 } }}
+        transition={{ duration: 0.4 }}
+        style={{ perspective: 800, willChange: 'transform' }}
+      >
+        <div className={styles.cardBack}>
+          <Card
+            sx={{
+              boxSizing: 'border-box',
+              backgroundImage:`url(${pokemonCardBack})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '100% auto',
+              height: '100%',
+              width: '100%',
+              borderRadius: '0.75dvw',
+              overflow: 'hidden',
+              zIndex: 12,
+            }}
+          />
+          <div className={styles.staticGradientBack} />
+        </div>
+      </motion.div>
+    )
+  }
+
+  const [imgSrc, setImgSrc] = useState(null);
+  const texture = getPokemonCardTextureByType(type);
 
   // Cleanup animation frame on unmount.
   useEffect(() => {
@@ -120,7 +151,6 @@ export const PokemonCard = memo(({
     >
       <Tilt
         className={styles.cardFront}
-        tiltEnable={!flipped}
         tiltMaxAngleX={10}
         tiltMaxAngleY={10}
         perspective={800}
@@ -213,10 +243,8 @@ export const PokemonCard = memo(({
             paddingBottom: '0',
             overflow: 'hidden',
           }}
-        >
-        </Card>
-        <div className={styles.staticGradientBack}>
-        </div>
+        />
+        <div className={styles.staticGradientBack} />
       </div>
     </motion.div>
   )

@@ -1,4 +1,5 @@
 export const ALL_IDS = Array.from({ length: 151 }, (_, i) => (i + 1).toString());
+export const FIRST_IDS = Array.from({ length: 50 }, (_, i) => (i + 1).toString());
 
 export function getUsedIds(discardPileIds, drawnCards = []) {
   const drawnIds = drawnCards.map(card => card.pokemonId);
@@ -21,6 +22,8 @@ export function isInList(list, id) {
 }
 
 export function getImageSrcFromCard(card, variant = "default") {
-  const blob = variant === "shiny" ? card.shinyImage : card.defaultImage;
+  // Re-enable if you ever use shiny pokemon in a feature.
+  // const blob = variant === "shiny" ? card.shinyImage : card.defaultImage;
+  const blob = card.defaultImage;
   return blob instanceof Blob ? URL.createObjectURL(blob) : blob
 }

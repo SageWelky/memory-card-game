@@ -1,9 +1,10 @@
+import { Suspense, lazy } from 'react'
 import Button from '@mui/material/Button'
 import { Modal } from 'common/Modal'
 import styles from 'components/Body/Body.module.css'
 import { BodyStartup } from 'components/Body/components/BodyStartup'
 import { useGameLogic } from 'context/GameContext'
-import { BodyCardMat } from './components/BodyCardMat/BodyCardMat'
+import { BodyCardMatLoader } from './components/BodyCardMat/BodyCardMatLoader'
 
 const GameOverInfo = ({ resetGame }) => {
   return(
@@ -27,12 +28,23 @@ const GameOverInfo = ({ resetGame }) => {
 }
 
 export const Body = () => {
-  const { gameOver, startGame, resetGame, started } = useGameLogic();
+  const { gameOver,
+    startGame,
+    resetGame,
+    started,
+    drawNewHand,
+    firstLoadDrawNewHand
+  } = useGameLogic();
 
   return (
     <>
       {started ? (
-        <BodyCardMat />
+        <Suspense fallback={<h2 className={styles.loading}>Loading...</h2>}>
+          <BodyCardMatLoader
+            drawNewHand={drawNewHand}
+            firstLoadDrawNewHand={firstLoadDrawNewHand}
+          />
+        </Suspense>
       ) : (
         <BodyStartup handleClick={() => startGame()}></BodyStartup>
       )}
@@ -43,7 +55,6 @@ export const Body = () => {
             >
               <GameOverInfo resetGame={resetGame}/>
             </Modal>
-
           )}
     </>
   )

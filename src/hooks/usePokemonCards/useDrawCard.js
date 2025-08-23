@@ -1,6 +1,7 @@
 import { cardManager } from 'services/cardManagerSingleton';
 import {
   ALL_IDS,
+  FIRST_IDS,
   getRandomIdFromList,
 } from 'utils/cardUtils';
 
@@ -55,5 +56,42 @@ export function useDrawCard({ discardPileIds }) {
     return drawnCards
   }
 
-  return { drawNewCards }
+  const firstLoadDrawNewCards = async (amount, clickedCardIds = []) => {
+    if (amount < 1) {
+      throw new Error("Cannot draw less than one card.");
+    }
+
+    const drawnCards = [];
+
+    if (clickedCardIds.length > 0) {
+      const clickedCardId = getRandomIdFromList(clickedCardIds);
+      const clickedPokemonId = cardManager.getPokemonIdFromCardId(clickedCardId)
+      const clickedCard = await cardManager.getCardById(clickedPokemonId);
+      drawnCards.push(clickedCard);
+    }
+
+    const unseenIds = FIRST_IDS.filter(id => !discardPileIds.has(id));
+    if (unseenIds.length === 0) {
+      throw new Error("No unseen Pokémon left to draw.");
+    }
+    const unseenId = getRandomIdFromList(unseenIds);
+    const unseenCard = await cardManager.getCardById(unseenId);
+    drawnCards.push(unseenCard);
+
+    while (drawnCards.length < amount) {
+      const usedIds = new Set(drawnCards.map(c => c.pokemonId));
+      const availableIds = FIRST_IDS.filter(id => !usedIds.has(id));
+
+      if (availableIds.length === 0) {
+        throw new Error("No available Pokémon left to draw.");
+      }
+
+      const newId = getRandomIdFromList(availableIds);
+      const card = await cardManager.getCardById(newId);
+      drawnCards.push(card);
+    }
+    return drawnCards
+  }
+
+  return { drawNewCards, firstLoadDrawNewCards }
 }
