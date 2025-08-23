@@ -151,6 +151,7 @@ export const PokemonCard = memo(({
     >
       <Tilt
         className={styles.cardFront}
+        tiltEnable={!flipped}
         tiltMaxAngleX={10}
         tiltMaxAngleY={10}
         perspective={800}
