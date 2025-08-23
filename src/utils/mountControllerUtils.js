@@ -23,7 +23,7 @@ export const createMountController = () => {
     refReady: (expectedCount) => {
       if (typeof expectedCount !== "number") {
         throw new Error(
-          "refReady requires expectedCount on the first mount call"
+          "refReady requires expectedCount on the first mount call."
         );
       }
       if (expected === null) {
