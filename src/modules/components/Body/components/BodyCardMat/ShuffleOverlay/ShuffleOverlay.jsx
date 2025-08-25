@@ -37,10 +37,10 @@ export const ShuffleOverlay = ({ currentHand }) => {
   return (
     <div className={styles.absoluteOverlay}>
       <TapHeader tapMode={tapMode} />
-      {currentHand.map((card) => {
+      {currentHand.map((card, idx) => {
         return (
           <ShuffleCardWrapper
-            key={card.cardId}
+            key={idx}
             currentHandLength={currentHand.length}
             card={card}
             cardRects={cardRects}
