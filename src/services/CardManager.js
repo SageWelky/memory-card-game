@@ -92,35 +92,35 @@ export class CardManager {
   }
 
   async openDB() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(this.dbName, 1);
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open(this.dbName, 1);
 
-    request.onupgradeneeded = (event) => {
-      const db = request.result;
+      request.onupgradeneeded = (event) => {
+        const db = request.result;
 
-      if (!db.objectStoreNames.contains(this.storeName)) {
-        db.createObjectStore(this.storeName);
-      }
-      if (!db.objectStoreNames.contains('meta')) {
-        db.createObjectStore('meta');
-      }
-    };
-
-    request.onsuccess = () => {
-      const db = request.result;
-
-      db.onversionchange = () => {
-        db.close();
-        console.warn('Database outdated.');
+        if (!db.objectStoreNames.contains(this.storeName)) {
+          db.createObjectStore(this.storeName);
+        }
+        if (!db.objectStoreNames.contains('meta')) {
+          db.createObjectStore('meta');
+        }
       };
 
-      // This just makes sure the db is stable.
-      setTimeout(() => resolve(db), 0);
-    };
+      request.onsuccess = () => {
+        const db = request.result;
 
-    request.onerror = () => reject(request.error);
-  });
-}
+        db.onversionchange = () => {
+          db.close();
+          console.warn('Database outdated.');
+        };
+
+        // This just makes sure the db is stable.
+        setTimeout(() => resolve(db), 0);
+      };
+
+      request.onerror = () => reject(request.error);
+    });
+  }
 
 
   async getMeta(key) {
