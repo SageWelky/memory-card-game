@@ -183,7 +183,7 @@ export class CardManager {
     }
   }
 
-  async seedInitialCards(limit = 50, batchSize = 10, disableLimitWarn = false) {
+  async seedInitialCards(limit = 150, batchSize = 25, disableLimitWarn = false) {
     if ((limit < 36) && !disableLimitWarn) {
       console.warn('Ensure limit:', limit, 'is above 36 (or 3 times your hand size).');
     }

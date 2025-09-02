@@ -1,4 +1,3 @@
-import { useLayoutEffect } from 'react'
 import { PokemonCard } from 'common/PokemonCard'
 import styles from 'components/Body/Body.module.css'
 import { ShuffleOverlay } from 'components/Body/components/BodyCardMat/ShuffleOverlay/ShuffleOverlay'
